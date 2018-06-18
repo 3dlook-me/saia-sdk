@@ -6,7 +6,7 @@
   "scripts": {
     "build:win": "set NODE_ENV=development && webpack --progress",
     "docs": "jsdoc -r ./lib -c .jsdoc.json -d docs",
-    "test": "karma start karma.config.js --log-level debug --single-run"
+    "test": "karma start karma.config.js --log-level debug"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "axios": "^0.18.0"
   },
   "devDependencies": {
+    "b64-to-blob": "^1.2.19",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
@@ -31,6 +32,7 @@
     "karma": "^2.0.2",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.2",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "minami": "^1.2.3",
     "puppeteer": "^1.5.0",

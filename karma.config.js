@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 module.exports = function(config) {
@@ -10,9 +12,10 @@ module.exports = function(config) {
     exclude: [
     ],
     preprocessors: {
-      'test-context.js': ['webpack']
+      'test-context.js': ['webpack', 'sourcemap']
     },
     webpack: {
+      devtool: 'inline-source-map',
       module: {
         rules: [
           {
@@ -43,7 +46,14 @@ module.exports = function(config) {
     reporters: ['progress'],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
+    client: {
+      captureConsole: true,
+      jasmine: {
+        random: false,
+        DEFAULT_TIMEOUT_INTERVAL: 60000,
+      },
+    },
     autoWatch: true,
     browsers: ['ChromeHeadless'],
     singleRun: false,
