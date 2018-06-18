@@ -17,10 +17,11 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/Hachapury/saia-sdk#readme",
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "b64-to-blob": "^1.2.19",
+    "webcamjs": "^1.0.25"
   },
   "devDependencies": {
-    "b64-to-blob": "^1.2.19",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
