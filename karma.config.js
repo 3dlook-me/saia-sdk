@@ -1,6 +1,9 @@
 /* eslint-disable */
 
-process.env.CHROME_BIN = require('puppeteer').executablePath()
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
+const NODE_ENV = process.env.NODE_ENV;
+const mode = (NODE_ENV && NODE_ENV.trim() === 'production') ? 'production' : 'development';
 
 module.exports = function(config) {
   config.set({
@@ -15,6 +18,7 @@ module.exports = function(config) {
       'test-context.js': ['webpack', 'sourcemap']
     },
     webpack: {
+      mode,
       devtool: 'inline-source-map',
       module: {
         rules: [
@@ -43,7 +47,7 @@ module.exports = function(config) {
     webpackServer: {
       noInfo: true
     },
-    reporters: ['progress'],
+    reporters: ['spec'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
