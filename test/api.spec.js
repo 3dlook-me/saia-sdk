@@ -155,4 +155,20 @@ describe('API', function () {
 
   });
 
+  describe('getResults', () => {
+
+    it('should get results', (done) => {
+      return api.getResults()
+      .then((r) => {
+        expect(typeof r).toEqual('object');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+
 });
