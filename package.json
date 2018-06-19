@@ -7,7 +7,7 @@
     "build:win": "set NODE_ENV=development && webpack --progress",
     "build:prod:win": "set NODE_ENV=production && webpack --progress",
     "docs": "jsdoc -r ./lib -c .jsdoc.json -d docs",
-    "test": "karma start karma.config.js --log-level debug"
+    "test": "karma start karma.config.js --log-level debug --single-run"
   },
   "repository": {
     "type": "git",
