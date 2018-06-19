@@ -13,7 +13,7 @@ const sideImage = testImages.sideImage;
 describe('API', function () {
 
   beforeAll(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
     api = new API({
       apiHost: host,
@@ -83,6 +83,8 @@ describe('API', function () {
       api.saveFrontImage(frontImage);
 
       expect(api.data.frontImage).toEqual(frontImage);
+
+      return done();
     });
 
   });
