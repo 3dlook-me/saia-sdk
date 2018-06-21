@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Example</title>
+  <title>Example #2</title>
   <style>
     /* base */
     body {
@@ -84,16 +84,13 @@
 </head>
 <body>
   <div class="widget-example">
-    <div id="camera" class="camera"></div>
     <label for="front_image">
       Choose front image:
       <input type="file" name="front_image" id="front_image">
-      <button id="front_image_web" type="button">Get front photo from webcam</button>
     </label>
     <label for="side_image">
       Choose side image:
       <input type="file" name="side_image" id="side_image">
-      <button id="side_image_web" type="button">Get side photo from webcam</button>
     </label>
     <label for="gender">
       Choose gender:
@@ -109,7 +106,7 @@
     
     <p>Execution status: <span id="status"></span></p>
     <button id="start" type="button">START</button>
-    <div id="results" class="results"></div>
+    <pre id="results" class="results"></pre>
   </div>
   
   <script src="../dist/saia-sdk.js"></script>
@@ -120,30 +117,33 @@
       const gender = document.getElementById('gender');
       const height = document.getElementById('height');
       const startBtn = document.getElementById('start');
-      const frontImageCamBtn = document.getElementById('front_image_web');
-      const sideImageCamBtn = document.getElementById('side_image_web');
-      const results = document.getElementById('results');
+      const resultsEl = document.getElementById('results');
       const status = document.getElementById('status');
-      const camera = document.getElementById('camera');
 
-      new SAIA({
+      const saia = new SAIA({
         key: '<YOUR_API_KEY>',
-        camera: {
-          enabled: true,
-          width: 600,
-          height: 320,
-          target: camera,
-        },
-        frontImageEl: frontImage,
-        sideImageEl: sideImage,
-        genderEl: gender,
-        heightEl: height,
-        startButtonEl: startBtn,
-        frontImageCamEl: frontImageCamBtn,
-        sideImageCamEl: sideImageCamBtn,
+        showStatus: status,
         statusEl: status,
-        resultsEl: results,
-        showStatus: true,
+      });
+
+      frontImage.addEventListener('change', () => {
+        saia.saveFrontImage(frontImage.files[0]);
+      });
+
+      sideImage.addEventListener('change', () => {
+        saia.saveSideImage(sideImage.files[0]);
+      });
+
+      startBtn.addEventListener('click', () => {
+        saia.updatePersonsData(gender.value, parseInt(height.value, 10));
+
+        saia.postMetadate()
+          .then(() => saia.sendImages())
+          .then(() => saia.getResults())
+          .then((results) => {
+            resultsEl.innerHTML = JSON.stringify(results, null, '  ');
+          })
+          .catch(err => console.error(err));
       });
     };
   </script>
