@@ -5,5 +5,13 @@
   },
   "env": {
     "browser": true
+  },
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ]
   }
 }
