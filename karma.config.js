@@ -60,6 +60,7 @@ module.exports = function(config) {
     },
     autoWatch: true,
     browsers: ['ChromeHeadless'],
+    browserNoActivityTimeout: 60000,
     singleRun: false,
     concurrency: Infinity
   })
