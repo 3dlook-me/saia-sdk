@@ -170,5 +170,88 @@ describe('API', function () {
     });
 
   });
+  
+  describe('getBase64', () => {
+
+    it('should return base64 string representation of File or Blob object', (done) => {
+      return api.getBase64(frontImage)
+      .then((r) => {
+        expect(typeof r).toBe('string');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+  
+  describe('createPerson', () => {
+
+    it('should return an error if height is not passed', (done) => {
+      api.data = {};
+
+      expect(() => { api.createPerson({
+          gender: 'male',
+          frontImage,
+          sideImage,
+        });
+      }).toThrow(new Error('No height is specified'));
+
+      return done();
+    });
+
+    it('should return an error if gender is not passed', (done) => {
+      expect(() => { api.createPerson({
+          height: 170,
+          frontImage,
+          sideImage,
+        });
+      }).toThrow(new Error('No gender is specified'));
+
+      return done();
+    });
+
+    it('should return an error if frontImage is not passed', (done) => {
+      expect(() => { api.createPerson({
+          height: 170,
+          gender: 'male',
+          sideImage,
+        });
+      }).toThrow(new Error('No images found'));
+
+      return done();
+    });
+
+    it('should return an error if sideImage is not passed', (done) => {
+      expect(() => { api.createPerson({
+          height: 170,
+          gender: 'male',
+          frontImage,
+        });
+      }).toThrow(new Error('No images found'));
+
+      return done();
+    });
+
+    it('should return task set url of created person', (done) => {
+      return api.createPerson({
+        height: 170,
+        gender: 'male',
+        frontImage,
+        sideImage,
+      })
+      .then((r) => {
+        expect(typeof r).toBe('string');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
 
 });
