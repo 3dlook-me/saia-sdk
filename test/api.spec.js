@@ -111,6 +111,22 @@ describe('API', function () {
 
   });
 
+  describe('getResults', () => {
+
+    it('should get results', (done) => {
+      return api.getResults()
+      .then((r) => {
+        expect(typeof r).toEqual('object');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+
   describe('sendFrontImage', () => {
 
     it('should throw an error if image is not spicified', (done) => {
@@ -122,7 +138,7 @@ describe('API', function () {
     it('should upload image successful', (done) => {
       return api.sendFrontImage(frontImage)
       .then((r) => {
-        expect(typeof r).toEqual('string');
+        expect(r).toBe(true);
         return done();
       })
       .catch(err => {
@@ -132,7 +148,7 @@ describe('API', function () {
     });
 
   });
-
+  
   describe('sendSideImage', () => {
 
     it('should throw an error if image is not spicified', (done) => {
@@ -144,23 +160,7 @@ describe('API', function () {
     it('should upload image successful', (done) => {
       return api.sendSideImage(frontImage)
       .then((r) => {
-        expect(typeof r).toEqual('string');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-
-  describe('getResults', () => {
-
-    it('should get results', (done) => {
-      return api.getResults()
-      .then((r) => {
-        expect(typeof r).toEqual('object');
+        expect(r).toBe(true);
         return done();
       })
       .catch(err => {
