@@ -1,4 +1,5 @@
 /* eslint-disable */
+const webpack = require('webpack');
 
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
@@ -42,6 +43,11 @@ module.exports = function(config) {
           }
         ],
       },
+      plugins: [
+        new webpack.DefinePlugin({
+          API_HOST: JSON.stringify('https://saia-test.3dlook.me/api/v2/'),
+        }),
+      ],
       watch: true
     },
     webpackServer: {
