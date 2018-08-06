@@ -14,6 +14,8 @@ const sideImage = testImages.sideImage;
 describe('Queue', function () {
 
   beforeAll(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
     const axiosInstance = axios.create();
 
     axiosInstance.defaults.headers = {
@@ -65,6 +67,41 @@ describe('Queue', function () {
       .then((tasksData) => {
         expect(typeof tasksData).toEqual('object');
         expect(typeof tasksData.sub_tasks).toEqual('object');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+
+  describe('getResults', () => {
+
+    it('should throw an error if id is not specified', (done) => {
+      expect(() => queue.getResults()).toThrow(new Error('id is not specified'));
+
+      return done();
+    });
+
+    it('should get person object when tasks finish', (done) => {
+      return person.create({
+        gender: 'female',
+        height: 170,
+        frontImage,
+        sideImage,
+      })
+      .then((r) => {
+        expect(typeof r).toEqual('string');
+        return r;
+      })
+      .then((id) => {
+        return queue.getResults(id);
+      })
+      .then((person) => {
+        expect(typeof person).toEqual('object');
+        expect(typeof person.front_params).toEqual('object');
         return done();
       })
       .catch(err => {
