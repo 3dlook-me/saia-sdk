@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV;
 const mode = (NODE_ENV && NODE_ENV.trim() === 'production') ? 'production' : 'development';
 
-/** 
+/**
  * Building paths
  */
 const paths = {
@@ -77,6 +77,9 @@ const config = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      API_HOST: (mode === 'production') ? JSON.stringify('https://saia.3dlook.me/api/v2/') : JSON.stringify('https://saia-test.3dlook.me/api/v2/'),
+    }),
   ],
   devtool: (mode === 'production') ? false : 'source-map',
 };
