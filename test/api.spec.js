@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API from '../lib/api/index';
+import API from '../lib/api';
 import Person from '../lib/api/person';
 import Queue from '../lib/api/queue';
 import testImages from './testImages';
