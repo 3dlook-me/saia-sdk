@@ -106,12 +106,12 @@
       Enter height:
       <input type="number" name="height" id="height">
     </label>
-    
+
     <p>Execution status: <span id="status"></span></p>
     <button id="start" type="button">START</button>
     <div id="results" class="results"></div>
   </div>
-  
+
   <script src="../dist/saia-sdk.js"></script>
   <script>
     window.onload = function () {
@@ -126,8 +126,11 @@
       const status = document.getElementById('status');
       const camera = document.getElementById('camera');
 
-      new SAIA({
+      const saia = new SAIA({
         key: '<YOUR_API_KEY>',
+      });
+
+      const widget = saia.widget.create({
         camera: {
           enabled: true,
           width: 600,
