@@ -36,8 +36,11 @@ SAIA Javascript SDK can work in two modes: as a widget and as a API wrapper. For
 Then you need to initialize widget like this:
 
 ```js
-new SAIA({
+var saia = new SAIA({
   key: '<your api key>',
+});
+
+var widget = saia.widget.create({
   camera: {
     enabled: true,
     width: 600,
@@ -70,13 +73,13 @@ const saia = new SAIA({
   key: '<your api key>',
 });
 
-saia.updatePersonsData('female', 180);
-saia.saveFrontImage(frontImage);
-saia.saveSideImage(sideImage);
-
-saia.postMetadate()
-  .then(() => saia.sendImages())
-  .then(() => saia.getResults())
+saia.api.person.create({
+  gender: 'female',
+  height: 180,
+  frontImage: frontImage,
+  sideImage: sideImage,
+})
+  .then((taskSetId) => saia.api.queue.getResults(taskSetId))
   .then(results => console.log(results))
   .catch(err => console.error(err));
 ```
