@@ -12,8 +12,8 @@ describe('API', function () {
 
   beforeAll(() => {
     api = new API({
-      apiHost: host,
-      apiKey: key,
+      host,
+      key,
     });
   });
 
@@ -27,7 +27,7 @@ describe('API', function () {
 
     it('should throw an error if api key is not specified', (done) => {
       expect(() => new API({
-        apiHost: host,
+        host,
       })).toThrow(new Error('You need to specify API key'));
 
       return done();
