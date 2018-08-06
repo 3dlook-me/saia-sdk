@@ -1,0 +1,12 @@
+{
+  "src": "lib/**/*.js",
+  "dest": "docs",
+  "clean": true,
+  "template": {
+    "options": {
+        "title": {
+          "label": "SAIA SDK"
+        }
+    }
+  }
+}
