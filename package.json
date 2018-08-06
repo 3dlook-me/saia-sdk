@@ -7,7 +7,7 @@
     "build:win": "set NODE_ENV=development && webpack --progress",
     "build:prod:win": "set NODE_ENV=production && webpack --progress",
     "docs": "jsdoc -r ./lib -c .jsdoc.json -d docs",
-    "readme": "jsdoc2md --template ./jsdoc2md/readme.hbs --files lib/saia.js lib/camera.js lib/api.js -c .jsdoc.json > README.md",
+    "readme": "jsdoc2md --template ./jsdoc2md/readme.hbs --files lib/api/index.js lib/api/person.js lib/api/queue.js lib/widget/index.js lib/camera.js lib/saia.js -c .jsdoc.json > README.md",
     "test": "karma start karma.config.js --log-level debug --single-run"
   },
   "repository": {
