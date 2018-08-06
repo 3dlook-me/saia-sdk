@@ -1,20 +1,16 @@
 /* eslint-disable */
-import API from '../lib/api';
-import getImages from './testImages';
+import API from '../lib/api/index';
+import Person from '../lib/api/person';
+import Queue from '../lib/api/queue';
+import testImages from './testImages';
 
 let api;
-const host = 'https://saia-test.3dlook.me/api/v2/persons/';
+const host = 'https://saia-test.3dlook.me/api/v2/';
 const key = '<YOUR_API_KEY>';
-const testImages = getImages();
-const frontImage = testImages.frontImage;
-const sideImage = testImages.sideImage;
-
 
 describe('API', function () {
 
   beforeAll(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
-
     api = new API({
       apiHost: host,
       apiKey: key,
@@ -23,233 +19,30 @@ describe('API', function () {
 
   describe('constructor', () => {
 
-    it('should throw an error if api host is not spicified', (done) => {
+    it('should throw an error if api host is not specified', (done) => {
       expect(() => new API()).toThrow(new Error('You need to specify API host URL'));
-  
+
       return done();
     });
-  
-    it('should throw an error if api key is not spicified', (done) => {
+
+    it('should throw an error if api key is not specified', (done) => {
       expect(() => new API({
         apiHost: host,
       })).toThrow(new Error('You need to specify API key'));
-  
-      return done();
-    });
-
-  });
-
-  describe('updatePersonsData', () => {
-
-    it('should update person data', (done) => {
-      const testData = {
-        gender: 'female',
-        height: 180,
-      };
-      api.updatePersonsData(testData.gender, testData.height);
-  
-      expect(api.data.gender).toBe(testData.gender);
-      expect(api.data.height).toBe(testData.height);
-  
-      return done();
-    });
-
-  });
-
-  describe('postMetadate', () => {
-
-    it('should post metadate successful', (done) => {
-      return api.postMetadate('male', 170)
-      .then((r) => {
-        expect(typeof r).toEqual('string');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-
-  describe('saveFrontImage', () => {
-
-    it('should save front image to data object', (done) => {
-      const api = new API({
-        apiHost: 'test',
-        apiKey: 'test',
-      });
-
-      api.saveFrontImage(frontImage);
-
-      expect(api.data.frontImage).toEqual(frontImage);
 
       return done();
     });
 
-  });
-
-  describe('sendImages', () => {
-
-    it('should throw an error if images are not spicified', (done) => {
-      expect(() => api.sendImages()).toThrow(new Error('No images found'));
-  
-      return done();
-    });
-
-    it('should upload images successful', (done) => {
-      return api.sendImages(frontImage, sideImage)
-      .then((r) => {
-        expect(typeof r).toEqual('string');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-
-  describe('getResults', () => {
-
-    it('should get results', (done) => {
-      return api.getResults()
-      .then((r) => {
-        expect(typeof r).toEqual('object');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-
-  describe('sendFrontImage', () => {
-
-    it('should throw an error if image is not spicified', (done) => {
-      expect(() => api.sendFrontImage()).toThrow(new Error('No image found'));
-  
-      return done();
-    });
-
-    it('should upload image successful', (done) => {
-      return api.sendFrontImage(frontImage)
-      .then((r) => {
-        expect(r).toBe(true);
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-  
-  describe('sendSideImage', () => {
-
-    it('should throw an error if image is not spicified', (done) => {
-      expect(() => api.sendSideImage()).toThrow(new Error('No image found'));
-  
-      return done();
-    });
-
-    it('should upload image successful', (done) => {
-      return api.sendSideImage(frontImage)
-      .then((r) => {
-        expect(r).toBe(true);
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-  
-  describe('getBase64', () => {
-
-    it('should return base64 string representation of File or Blob object', (done) => {
-      return api.getBase64(frontImage)
-      .then((r) => {
-        expect(typeof r).toBe('string');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
-    });
-
-  });
-  
-  describe('createPerson', () => {
-
-    it('should return an error if height is not passed', (done) => {
-      api.data = {};
-
-      expect(() => { api.createPerson({
-          gender: 'male',
-          frontImage,
-          sideImage,
-        });
-      }).toThrow(new Error('No height is specified'));
+    it('should has .person object - instance of Person class', (done) => {
+      expect(api.person).toEqual(jasmine.any(Person));
 
       return done();
     });
 
-    it('should return an error if gender is not passed', (done) => {
-      expect(() => { api.createPerson({
-          height: 170,
-          frontImage,
-          sideImage,
-        });
-      }).toThrow(new Error('No gender is specified'));
+    it('should has .queue object - instance of Queue class', (done) => {
+      expect(api.queue).toEqual(jasmine.any(Queue));
 
       return done();
-    });
-
-    it('should return an error if frontImage is not passed', (done) => {
-      expect(() => { api.createPerson({
-          height: 170,
-          gender: 'male',
-          sideImage,
-        });
-      }).toThrow(new Error('No images found'));
-
-      return done();
-    });
-
-    it('should return an error if sideImage is not passed', (done) => {
-      expect(() => { api.createPerson({
-          height: 170,
-          gender: 'male',
-          frontImage,
-        });
-      }).toThrow(new Error('No images found'));
-
-      return done();
-    });
-
-    it('should return task set url of created person', (done) => {
-      return api.createPerson({
-        height: 170,
-        gender: 'male',
-        frontImage,
-        sideImage,
-      })
-      .then((r) => {
-        expect(typeof r).toBe('string');
-        return done();
-      })
-      .catch(err => {
-        expect(err).toBe(null);
-        return done();
-      });
     });
 
   });
