@@ -36,8 +36,11 @@ SAIA Javascript SDK can work in two modes: as a widget and as a API wrapper. For
 Then you need to initialize widget like this:
 
 ```js
-new SAIA({
+var saia = new SAIA({
   key: '<your api key>',
+});
+
+var widget = saia.widget.create({
   camera: {
     enabled: true,
     width: 600,
@@ -70,13 +73,13 @@ const saia = new SAIA({
   key: '<your api key>',
 });
 
-saia.updatePersonsData('female', 180);
-saia.saveFrontImage(frontImage);
-saia.saveSideImage(sideImage);
-
-saia.postMetadate()
-  .then(() => saia.sendImages())
-  .then(() => saia.getResults())
+saia.api.person.create({
+  gender: 'female',
+  height: 180,
+  frontImage: frontImage,
+  sideImage: sideImage,
+})
+  .then((taskSetId) => saia.api.queue.getResults(taskSetId))
   .then(results => console.log(results))
   .catch(err => console.error(err));
 ```
@@ -86,37 +89,285 @@ saia.postMetadate()
 ## Classes
 
 <dl>
-<dt><a href="#SAIA">SAIA</a></dt>
+<dt><a href="#API">API</a></dt>
+<dd><p>API wrapper class</p>
+</dd>
+<dt><a href="#Person">Person</a></dt>
+<dd><p>Person class</p>
+</dd>
+<dt><a href="#Queue">Queue</a></dt>
+<dd><p>Queue class</p>
+</dd>
+<dt><a href="#Widget">Widget</a></dt>
 <dd></dd>
 <dt><a href="#Camera">Camera</a></dt>
 <dd><p>Camera class</p>
 </dd>
-<dt><a href="#API">API</a></dt>
-<dd><p>API wrapper class</p>
-</dd>
+<dt><a href="#SAIA">SAIA</a></dt>
+<dd></dd>
 </dl>
 
-<a name="SAIA"></a>
+<a name="API"></a>
 
-## SAIA
+## API
+API wrapper class
+
+**Kind**: global class  
+<a name="new_API_new"></a>
+
+### new API(options)
+Class constructor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | options |
+| options.host | <code>string</code> | API url |
+| options.key | <code>string</code> | API key |
+
+<a name="Person"></a>
+
+## Person
+Person class
+
 **Kind**: global class  
 
-* [SAIA](#SAIA)
-    * [new SAIA(options)](#new_SAIA_new)
-    * [.updatePersonsData(gender, height)](#SAIA+updatePersonsData)
-    * [.postMetadate([gender], [height])](#SAIA+postMetadate) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendImages([frontImage], [sideImage])](#SAIA+sendImages) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendFrontImage(frontImage)](#SAIA+sendFrontImage) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendSideImage(sideImage)](#SAIA+sendSideImage) ⇒ <code>Promise</code>
-    * [.saveFrontImage(file)](#SAIA+saveFrontImage)
-    * [.saveSideImage(file)](#SAIA+saveSideImage)
-    * [.getResults()](#SAIA+getResults) ⇒ <code>Promise.&lt;Object&gt;</code>
-    * [.getSnapshot()](#SAIA+getSnapshot) ⇒ <code>Promise.&lt;Blob&gt;</code>
+* [Person](#Person)
+    * [new Person(host, axios)](#new_Person_new)
+    * [.create(params)](#Person+create) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.get(id)](#Person+get) ⇒ <code>Promise.&lt;Object&gt;</code>
+    * [.update(id, params)](#Person+update) ⇒ <code>Promise.&lt;Object&gt;</code>
+    * [.calculate(id)](#Person+calculate) ⇒ <code>Promise.&lt;string&gt;</code>
 
-<a name="new_SAIA_new"></a>
+<a name="new_Person_new"></a>
 
-### new SAIA(options)
-SAIA class constructor
+### new Person(host, axios)
+Person's class constructor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | host url |
+| axios | <code>Axios</code> | axios instance |
+
+<a name="Person+create"></a>
+
+### person.create(params) ⇒ <code>Promise.&lt;string&gt;</code>
+Create person only with metadata (gender and height)
+or with photos (gender, height, frontImage, sideImage).
+
+If you create Person only with metadata, then you will
+get Person's ID. If you create Person with metadata and images,
+you will get Taskset ID
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - person's id or taskset id  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | person's parameters |
+| params.gender | <code>string</code> | person's gender |
+| params.height | <code>number</code> | person's height |
+| [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
+| [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+// create person only with metadata
+// and get its id
+saia.api.person.create({
+  gender: 'male',
+  height: 180,
+})
+  .then(personId => console.log(personId))
+  .catch(err => console.log(err));
+
+// create person only with metadata and images
+// and get taskset id. You can use it to track
+// calculation process by using saia.api.queue.getResults(taskSetId)
+saia.api.person.create({
+  gender: 'male',
+  height: 180,
+  frontImage: <frontImage>,
+  sideImage: <sideImage>,
+})
+  .then(taskSetId => console.log(taskSetId))
+  .catch(err => console.log(err));
+```
+<a name="Person+get"></a>
+
+### person.get(id) ⇒ <code>Promise.&lt;Object&gt;</code>
+Get a specific Person by ID
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;Object&gt;</code> - Person  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | Person's ID |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.person.get(40)
+  .then(person => console.log(person))
+  .catch(err => console.log(err));
+```
+<a name="Person+update"></a>
+
+### person.update(id, params) ⇒ <code>Promise.&lt;Object&gt;</code>
+Full or Partial update Person by ID
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | Person''s ID |
+| params | <code>Object</code> | Person's parameters |
+| [params.gender] | <code>string</code> | Person's parameters |
+| [params.height] | <code>number</code> | Person's height |
+| [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
+| [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.person.update({
+  frontImage: <frontImage>,
+  sideImage: <sideImage>,
+})
+  .then(updatedFields => console.log(updatedFields))
+  .catch(err => console.log(err));
+```
+<a name="Person+calculate"></a>
+
+### person.calculate(id) ⇒ <code>Promise.&lt;string&gt;</code>
+Manual recalculate Person's parameters by ID
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - Taskset id  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | Person's ID |
+
+**Example**  
+```js
+// in this example we update person's images
+// and then manually start recalculation
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.person.update({
+  frontImage: <frontImage>,
+  sideImage: <sideImage>,
+})
+  .then(updatedFields => saia.api.person.calculate(updatedFields.id))
+  .then(taskSetId => console.log(taskSetId))
+  .catch(err => console.log(err));
+```
+<a name="Queue"></a>
+
+## Queue
+Queue class
+
+**Kind**: global class  
+
+* [Queue](#Queue)
+    * [new Queue(host, axios)](#new_Queue_new)
+    * [.get(id)](#Queue+get) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.getResults(id, [delay])](#Queue+getResults) ⇒ <code>Promise.&lt;object&gt;</code>
+
+<a name="new_Queue_new"></a>
+
+### new Queue(host, axios)
+Queue's class constructor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | host url |
+| axios | <code>Axios</code> | axios instance |
+
+<a name="Queue+get"></a>
+
+### queue.get(id) ⇒ <code>Promise.&lt;object&gt;</code>
+Get information about tasks by taskset id
+
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | taskset id |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')
+  .then(task => console.log(task))
+  .catch(err => console.log(err));
+```
+<a name="Queue+getResults"></a>
+
+### queue.getResults(id, [delay]) ⇒ <code>Promise.&lt;object&gt;</code>
+Check task status and if it is success, return person object
+
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | taskset id |
+| [delay] | <code>number</code> | delay before next check |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e')
+  .then(person => console.log(person))
+  .catch(err => console.log(err));
+
+// you also can specify the delay between checks
+saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e', 3400)
+  .then(person => console.log(person))
+  .catch(err => console.log(err));
+```
+<a name="Widget"></a>
+
+## Widget
+**Kind**: global class  
+
+* [Widget](#Widget)
+    * [new Widget(options)](#new_Widget_new)
+    * [.updatePersonsData(gender, height)](#Widget+updatePersonsData)
+    * [.createPerson([data])](#Widget+createPerson) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.saveFrontImage(file)](#Widget+saveFrontImage)
+    * [.saveSideImage(file)](#Widget+saveSideImage)
+    * [.getResults()](#Widget+getResults) ⇒ <code>Promise.&lt;Object&gt;</code>
+    * [.recalculate([id])](#Widget+recalculate) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.getSnapshot()](#Widget+getSnapshot) ⇒ <code>Promise.&lt;Blob&gt;</code>
+
+<a name="new_Widget_new"></a>
+
+### new Widget(options)
+Widget class constructor
 
 
 | Param | Type | Description |
@@ -144,16 +395,16 @@ SAIA class constructor
 
 **Example**  
 ```js
-const saia = new SAIA({
+const widget = new Widget({
   key: '<your key>'
 });
 ```
-<a name="SAIA+updatePersonsData"></a>
+<a name="Widget+updatePersonsData"></a>
 
-### saiA.updatePersonsData(gender, height)
+### widget.updatePersonsData(gender, height)
 Update person's data
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -162,105 +413,42 @@ Update person's data
 
 **Example**  
 ```js
-saia.updatePersonsData('male', 184);
+widget.updatePersonsData('male', 184);
 ```
-<a name="SAIA+postMetadate"></a>
+<a name="Widget+createPerson"></a>
 
-### saiA.postMetadate([gender], [height]) ⇒ <code>Promise.&lt;string&gt;</code>
-Create new instance
+### widget.createPerson([data]) ⇒ <code>Promise.&lt;string&gt;</code>
+Create new instance of a person with
+metadata and images
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [gender] | <code>string</code> | persons gender ('male', 'female') |
-| [height] | <code>number</code> | persons height |
+| [data] | <code>Object</code> | person's data |
+| [data.height] | <code>number</code> | person's height |
+| [data.gender] | <code>string</code> | person's gender |
+| [data.frontImage] | <code>File</code> \| <code>Blob</code> | person's front image |
+| [data.sideImage] | <code>File</code> \| <code>Blob</code> | person's side image |
 
 **Example**  
 ```js
 // you can pass user's info here
-saia.postMetadate('female', 170)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-
-// or, if you have already save user's info
-// with method .updatePersonsData, don't pass any arguments
-saia.postMetadate()
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="SAIA+sendImages"></a>
-
-### saiA.sendImages([frontImage], [sideImage]) ⇒ <code>Promise.&lt;string&gt;</code>
-Send images for further processing
-
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [frontImage] | <code>File</code> \| <code>Blob</code> | front image |
-| [sideImage] | <code>File</code> \| <code>Blob</code> | side image |
-
-**Example**  
-```js
-const frontImage, sideImage;
-
-// you can pass images here
-saia.sendImages(frontImage, sideImage);
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-
-// or, if you saved images with methods
-// .saveFrontImage and .saveSideImage,
-// don't pass any parameters
-saia.sendImages(frontImage, sideImage)
+widget.createPerson({
+    gender: 'female',
+    height: 170,
+    frontImage: frontImageFile,
+    sideImage: sideImageFile,
+  })
   .then(url => console.log(url))
   .catch(err => console.error(err));
 ```
-<a name="SAIA+sendFrontImage"></a>
+<a name="Widget+saveFrontImage"></a>
 
-### saiA.sendFrontImage(frontImage) ⇒ <code>Promise.&lt;string&gt;</code>
-Send front image for further processing
-
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| frontImage | <code>File</code> \| <code>Blob</code> | front image |
-
-**Example**  
-```js
-const frontImage;
-
-saia.sendFrontImage(frontImage)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="SAIA+sendSideImage"></a>
-
-### saiA.sendSideImage(sideImage) ⇒ <code>Promise</code>
-Send side image for further processing
-
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| sideImage | <code>File</code> \| <code>Blob</code> | side image |
-
-**Example**  
-```js
-const sideImage;
-
-saia.sendSideImage(sideImage)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="SAIA+saveFrontImage"></a>
-
-### saiA.saveFrontImage(file)
+### widget.saveFrontImage(file)
 Save front image
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -270,14 +458,14 @@ Save front image
 ```js
 const frontImage;
 
-saia.saveFrontImage(frontImage);
+widget.saveFrontImage(frontImage);
 ```
-<a name="SAIA+saveSideImage"></a>
+<a name="Widget+saveSideImage"></a>
 
-### saiA.saveSideImage(file)
+### widget.saveSideImage(file)
 Save side image
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -287,33 +475,54 @@ Save side image
 ```js
 const sideImage;
 
-saia.saveSideImage(sideImage);
+widget.saveSideImage(sideImage);
 ```
-<a name="SAIA+getResults"></a>
+<a name="Widget+getResults"></a>
 
-### saiA.getResults() ⇒ <code>Promise.&lt;Object&gt;</code>
+### widget.getResults() ⇒ <code>Promise.&lt;Object&gt;</code>
 Get results
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 **Example**  
 ```js
 // use this method only after saving images,
 // users info and posting metadate
-saia.getResults()
+widget.getResults()
   .then(result => console.log(result))
   .catch(err => console.error(err));
 ```
-<a name="SAIA+getSnapshot"></a>
+<a name="Widget+recalculate"></a>
 
-### saiA.getSnapshot() ⇒ <code>Promise.&lt;Blob&gt;</code>
+### widget.recalculate([id]) ⇒ <code>Promise.&lt;string&gt;</code>
+Recalculate person's parameters
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [id] | <code>number</code> | person instance url |
+
+**Example**  
+```js
+// if you have updated user's front or side image
+// with .sendFrontImage or .sendSideImage
+// you could recalculate person's parameters
+
+widget.recalculate()
+  .then(taskSetUrl => console.log(taskSetUrl))
+  .catch(err => console.error(err));
+```
+<a name="Widget+getSnapshot"></a>
+
+### widget.getSnapshot() ⇒ <code>Promise.&lt;Blob&gt;</code>
 Get webcam image
 
-**Kind**: instance method of [<code>SAIA</code>](#SAIA)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
 **Example**  
 ```js
 // camera should be enabled
-saia.getSnapshot()
-  .then(image => saia.saveFrontImage(image))
+widget.getSnapshot()
+  .then(image => widget.saveFrontImage(image))
   .catch(err => console.error(err));
 ```
 <a name="Camera"></a>
@@ -358,191 +567,25 @@ camera.getImage()
   .then(image => console.log(image))
   .catch(err => console.error(err));
 ```
-<a name="API"></a>
+<a name="SAIA"></a>
 
-## API
-API wrapper class
-
+## SAIA
 **Kind**: global class  
+<a name="new_SAIA_new"></a>
 
-* [API](#API)
-    * [new API(options)](#new_API_new)
-    * [.updatePersonsData(gender, height)](#API+updatePersonsData)
-    * [.postMetadate(gender, height)](#API+postMetadate) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendImages([frontImage], [sideImage])](#API+sendImages) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendFrontImage([frontImage])](#API+sendFrontImage) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.sendSideImage([sideImage])](#API+sendSideImage) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.saveFrontImage(file)](#API+saveFrontImage)
-    * [.saveSideImage(file)](#API+saveSideImage)
-    * [.getResults()](#API+getResults) ⇒ <code>Promise.&lt;Object&gt;</code>
-
-<a name="new_API_new"></a>
-
-### new API(options)
-Class constructor
+### new SAIA(options)
+SAIA class constructor
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options | <code>Object</code> | options |
-| options.apiHost | <code>string</code> | API url |
-| options.apiKey | <code>string</code> | API key |
-| options.delay | <code>number</code> | delay that determines how often API will check status of SAIA tasks |
-| options.gender | <code>string</code> | person's gender |
-| options.height | <code>number</code> | person's height |
-
-<a name="API+updatePersonsData"></a>
-
-### apI.updatePersonsData(gender, height)
-Update person's data
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| gender | <code>string</code> | persons gender |
-| height | <code>number</code> | persons height |
+| options | <code>Object</code> | config parameters |
+| options.key | <code>string</code> | api key |
+| options.host | <code>string</code> | api host url |
 
 **Example**  
 ```js
-api.updatePersonsData('male', 184);
-```
-<a name="API+postMetadate"></a>
-
-### apI.postMetadate(gender, height) ⇒ <code>Promise.&lt;string&gt;</code>
-Create new instance
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| gender | <code>string</code> | persons gender |
-| height | <code>number</code> | persons height |
-
-**Example**  
-```js
-// you can pass user's info here
-api.postMetadate('female', 170)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-
-// or, if you have already save user's info
-// with method .updatePersonsData, don't pass any arguments
-api.postMetadate()
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="API+sendImages"></a>
-
-### apI.sendImages([frontImage], [sideImage]) ⇒ <code>Promise.&lt;string&gt;</code>
-Send images for further processing
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [frontImage] | <code>File</code> \| <code>Blob</code> | front image |
-| [sideImage] | <code>File</code> \| <code>Blob</code> | side image |
-
-**Example**  
-```js
-const frontImage, sideImage;
-
-// you can pass images here
-api.sendImages(frontImage, sideImage);
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-
-// or, if you saved images with methods
-// .saveFrontImage and .saveSideImage,
-// don't pass any parameters
-api.sendImages(frontImage, sideImage)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="API+sendFrontImage"></a>
-
-### apI.sendFrontImage([frontImage]) ⇒ <code>Promise.&lt;string&gt;</code>
-Send front image for further processing
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [frontImage] | <code>File</code> \| <code>Blob</code> | front image |
-
-**Example**  
-```js
-const frontImage;
-
-api.sendFrontImage(frontImage)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="API+sendSideImage"></a>
-
-### apI.sendSideImage([sideImage]) ⇒ <code>Promise.&lt;string&gt;</code>
-Send side image for further processing
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [sideImage] | <code>File</code> \| <code>Blob</code> | side image |
-
-**Example**  
-```js
-const sideImage;
-
-api.sendSideImage(sideImage)
-  .then(url => console.log(url))
-  .catch(err => console.error(err));
-```
-<a name="API+saveFrontImage"></a>
-
-### apI.saveFrontImage(file)
-Save front image
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| file | <code>File</code> \| <code>Blob</code> | front image file |
-
-**Example**  
-```js
-const frontImage;
-
-api.saveFrontImage(frontImage);
-```
-<a name="API+saveSideImage"></a>
-
-### apI.saveSideImage(file)
-Save side image
-
-**Kind**: instance method of [<code>API</code>](#API)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| file | <code>File</code> \| <code>Blob</code> | side image file |
-
-**Example**  
-```js
-const sideImage;
-
-api.saveSideImage(sideImage);
-```
-<a name="API+getResults"></a>
-
-### apI.getResults() ⇒ <code>Promise.&lt;Object&gt;</code>
-Get results
-
-**Kind**: instance method of [<code>API</code>](#API)  
-**Example**  
-```js
-// use this method only after saving images,
-// users info and posting metadate
-api.getResults()
-  .then(result => console.log(result))
-  .catch(err => console.error(err));
+const saia = new SAIA({
+  key: '<your key>'
+});
 ```
