@@ -3,8 +3,8 @@ import SAIA from '../lib/saia';
 import API from '../lib/api';
 
 let saia;
-const host = 'https://saia-test.3dlook.me/api/v2/';
-const key = '<YOUR_API_KEY>';
+const host = API_HOST;
+const key = API_KEY;
 
 
 describe('SAIA', function () {

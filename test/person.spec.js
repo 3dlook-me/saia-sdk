@@ -5,8 +5,8 @@ import axios from 'axios';
 import testImages from './testImages';
 
 let person;
-const host = 'https://saia-test.3dlook.me/api/v2/';
-const key = '<YOUR_API_KEY>';
+const host = API_HOST;
+const key = API_KEY;
 const frontImage = testImages.frontImage;
 const sideImage = testImages.sideImage;
 

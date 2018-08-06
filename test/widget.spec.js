@@ -3,8 +3,8 @@ import Widget from '../lib/widget';
 import testImages from './testImages';
 
 let widget;
-const host = 'https://saia-test.3dlook.me/api/v2/persons/';
-const key = '<YOUR_API_KEY>';
+const host = API_HOST;
+const key = API_KEY;
 const frontImage = testImages.frontImage;
 const sideImage = testImages.sideImage;
 

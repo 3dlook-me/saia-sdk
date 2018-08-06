@@ -45,7 +45,8 @@ module.exports = function(config) {
       },
       plugins: [
         new webpack.DefinePlugin({
-          API_HOST: JSON.stringify('https://saia-test.3dlook.me/api/v2/'),
+          API_HOST: process.env.API_HOST,
+          API_KEY: process.env.API_KEY,
         }),
       ],
       watch: true

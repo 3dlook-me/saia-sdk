@@ -103,12 +103,12 @@
       Enter height:
       <input type="number" name="height" id="height">
     </label>
-    
+
     <p>Execution status: <span id="status"></span></p>
     <button id="start" type="button">START</button>
     <pre id="results" class="results"></pre>
   </div>
-  
+
   <script src="../dist/saia-sdk.js"></script>
   <script>
     window.onload = function () {
@@ -121,7 +121,7 @@
       const status = document.getElementById('status');
 
       const saia = new SAIA({
-        key: '<YOUR_API_KEY>',
+        key: 'YOUR_API_KEY',
         showStatus: status,
         statusEl: status,
       });

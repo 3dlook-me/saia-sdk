@@ -5,8 +5,8 @@ import Queue from '../lib/api/queue';
 import testImages from './testImages';
 
 let api;
-const host = 'https://saia-test.3dlook.me/api/v2/';
-const key = '<YOUR_API_KEY>';
+const host = API_HOST;
+const key = API_KEY;
 
 describe('API', function () {
 
