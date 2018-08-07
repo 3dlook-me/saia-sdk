@@ -1,16 +1,53 @@
 {
-  "src": "lib/**/*.js",
+  "src": [
+    "lib/**/*.js",
+    "./jsdoc2md/README.md"
+  ],
   "dest": "docs",
   "clean": true,
   "app": {
+    "entrance": "content:readme",
     "base": "/jssdkdoc",
     "routing": "query"
   },
   "template": {
     "options": {
-        "title": {
-          "label": "SAIA JS SDK"
-        }
+      "title": {
+        "label": "SAIA JS SDK"
+      },
+      "navbar": {
+        "menu": [
+          {
+            "label": "README",
+            "href": "/?content=readme"
+          },
+          {
+            "label": "DOCS",
+            "href": "/?api"
+          },
+          {
+            "label": "DOWNLOAD",
+            "iconClass": "fas fa-cloud-download-alt",
+            "items": [
+              {
+                "label": "v0.5.0-pre",
+                "href": "https://github.com/user/repo/archive/v0.7.0-pre.zip"
+              },
+              { "separator": true },
+              {
+                "label": "v1.0.0",
+                "href": "https://github.com/user/repo/archive/v1.0.0.zip"
+              }
+            ]
+          },
+          {
+            "label": "GITHUB",
+            "iconClass": "fab fa-github",
+            "href": "https://github.com/user/repo",
+            "target": "_blank"
+          }
+        ]
+      }
     }
   }
 }
