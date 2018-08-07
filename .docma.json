@@ -2,6 +2,10 @@
   "src": "lib/**/*.js",
   "dest": "docs",
   "clean": true,
+  "app": {
+    "base": "/jssdkdoc",
+    "routing": "query"
+  },
   "template": {
     "options": {
         "title": {
