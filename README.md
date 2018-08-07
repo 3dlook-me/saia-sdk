@@ -589,3 +589,15 @@ const saia = new SAIA({
   key: '<your key>'
 });
 ```
+
+## Testing
+
+To run tests, you need to run this command on terminal/consol:
+
+Linux/macOS
+
+    $ export API_KEY='<your api key>' && export API_HOST='<host>' && npm test
+
+Windows
+
+    $ set API_KEY='<your api key>' && set API_HOST='<host>' && npm test
