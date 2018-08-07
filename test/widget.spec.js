@@ -42,7 +42,7 @@ describe('Widget', function () {
 
     it('should update person data', (done) => {
       const testData = {
-        gender: 'female',
+        gender: 'male',
         height: 180,
       };
       widget.updatePersonsData(testData.gender, testData.height);
@@ -60,7 +60,7 @@ describe('Widget', function () {
   //   it('should get results', (done) => {
   //     return widget.createPerson({
   //       height: 170,
-  //       gender: 'female',
+  //       gender: 'male',
   //       frontImage,
   //       sideImage,
   //     })

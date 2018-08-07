@@ -52,7 +52,7 @@ describe('Queue', function () {
 
     it('should get tasks by id', (done) => {
       return person.create({
-        gender: 'female',
+        gender: 'male',
         height: 170,
         frontImage,
         sideImage,
@@ -87,17 +87,14 @@ describe('Queue', function () {
 
     it('should get person object when tasks finish', (done) => {
       return person.create({
-        gender: 'female',
+        gender: 'male',
         height: 170,
         frontImage,
         sideImage,
       })
-      .then((r) => {
-        expect(typeof r).toEqual('string');
-        return r;
-      })
-      .then((id) => {
-        return queue.getResults(id);
+      .then((taskSetId) => {
+        expect(typeof taskSetId).toEqual('string');
+        return queue.getResults(taskSetId);
       })
       .then((person) => {
         expect(typeof person).toEqual('object');

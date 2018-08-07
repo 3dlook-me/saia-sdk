@@ -13,6 +13,8 @@ const sideImage = testImages.sideImage;
 describe('Person', function () {
 
   beforeAll(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
     const axiosInstance = axios.create();
 
     axiosInstance.defaults.headers = {
@@ -60,7 +62,7 @@ describe('Person', function () {
 
     it('should post metadata successful and return Person\'s id', (done) => {
       return person.create({
-        gender: 'female',
+        gender: 'male',
         height: 170,
       })
       .then((r) => {
@@ -75,7 +77,7 @@ describe('Person', function () {
 
     it('should post metadata with photos successful and return Taskset id', (done) => {
       return person.create({
-        gender: 'female',
+        gender: 'male',
         height: 170,
         frontImage,
         sideImage,
@@ -102,7 +104,7 @@ describe('Person', function () {
 
     it('should return person data by id', (done) => {
       return person.create({
-        gender: 'female',
+        gender: 'male',
         height: 170,
       })
       .then((id) => {
@@ -147,7 +149,7 @@ describe('Person', function () {
 
       return person.create({
         height: 170,
-        gender: 'female',
+        gender: 'male',
       })
       .then((id) => {
         return person.update(id, {
@@ -187,7 +189,7 @@ describe('Person', function () {
 
       return person.create({
         height: 170,
-        gender: 'female',
+        gender: 'male',
       })
       .then((id) => {
         return person.update(id, {
