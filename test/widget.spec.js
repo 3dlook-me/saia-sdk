@@ -80,71 +80,71 @@ describe('Widget', function () {
 
   // });
 
-  // describe('createPerson', () => {
+  describe('createPerson', () => {
 
-  //   it('should return an error if height is not passed', (done) => {
-  //     widget.data = {};
+    it('should return an error if height is not passed', (done) => {
+      widget.data = {};
 
-  //     expect(() => { widget.createPerson({
-  //         gender: 'male',
-  //         frontImage,
-  //         sideImage,
-  //       });
-  //     }).toThrow(new Error('No height is specified'));
+      expect(() => { widget.createPerson({
+          gender: 'male',
+          frontImage,
+          sideImage,
+        });
+      }).toThrow(new Error('No height is specified'));
 
-  //     return done();
-  //   });
+      return done();
+    });
 
-  //   it('should return an error if gender is not passed', (done) => {
-  //     expect(() => { widget.createPerson({
-  //         height: 170,
-  //         frontImage,
-  //         sideImage,
-  //       });
-  //     }).toThrow(new Error('No gender is specified'));
+    it('should return an error if gender is not passed', (done) => {
+      expect(() => { widget.createPerson({
+          height: 170,
+          frontImage,
+          sideImage,
+        });
+      }).toThrow(new Error('No gender is specified'));
 
-  //     return done();
-  //   });
+      return done();
+    });
 
-  //   it('should return an error if frontImage is not passed', (done) => {
-  //     expect(() => { widget.createPerson({
-  //         height: 170,
-  //         gender: 'male',
-  //         sideImage,
-  //       });
-  //     }).toThrow(new Error('No images found'));
+    it('should return an error if frontImage is not passed', (done) => {
+      expect(() => { widget.createPerson({
+          height: 170,
+          gender: 'male',
+          sideImage,
+        });
+      }).toThrow(new Error('No images found'));
 
-  //     return done();
-  //   });
+      return done();
+    });
 
-  //   it('should return an error if sideImage is not passed', (done) => {
-  //     expect(() => { widget.createPerson({
-  //         height: 170,
-  //         gender: 'male',
-  //         frontImage,
-  //       });
-  //     }).toThrow(new Error('No images found'));
+    it('should return an error if sideImage is not passed', (done) => {
+      expect(() => { widget.createPerson({
+          height: 170,
+          gender: 'male',
+          frontImage,
+        });
+      }).toThrow(new Error('No images found'));
 
-  //     return done();
-  //   });
+      return done();
+    });
 
-  //   it('should return task set url of created person', (done) => {
-  //     return widget.createPerson({
-  //       height: 170,
-  //       gender: 'male',
-  //       frontImage,
-  //       sideImage,
-  //     })
-  //     .then((r) => {
-  //       expect(typeof r).toBe('string');
-  //       return done();
-  //     })
-  //     .catch(err => {
-  //       expect(err).toBe(null);
-  //       return done();
-  //     });
-  //   });
+    // it('should return task set url of created person', (done) => {
+    //   return widget.createPerson({
+    //     height: 170,
+    //     gender: 'male',
+    //     frontImage,
+    //     sideImage,
+    //   })
+    //   .then((r) => {
+    //     expect(typeof r).toBe('string');
+    //     return done();
+    //   })
+    //   .catch(err => {
+    //     expect(err).toBe(null);
+    //     return done();
+    //   });
+    // });
 
-  // });
+  });
 
 });
