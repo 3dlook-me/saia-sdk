@@ -19,32 +19,11 @@
         "menu": [
           {
             "label": "README",
-            "href": "/?content=readme"
+            "href": "/jssdkdoc/?content=readme"
           },
           {
             "label": "DOCS",
-            "href": "/?api"
-          },
-          {
-            "label": "DOWNLOAD",
-            "iconClass": "fas fa-cloud-download-alt",
-            "items": [
-              {
-                "label": "v0.5.0-pre",
-                "href": "https://github.com/user/repo/archive/v0.7.0-pre.zip"
-              },
-              { "separator": true },
-              {
-                "label": "v1.0.0",
-                "href": "https://github.com/user/repo/archive/v1.0.0.zip"
-              }
-            ]
-          },
-          {
-            "label": "GITHUB",
-            "iconClass": "fab fa-github",
-            "href": "https://github.com/user/repo",
-            "target": "_blank"
+            "href": "/jssdkdoc/?api"
           }
         ]
       }
