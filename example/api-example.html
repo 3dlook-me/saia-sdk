@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Example #1</title>
+  <style>
+    /* base */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f3f4;
+      font-family: 'Arial', 'Open Sans', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* example styles*/
+    .widget-example {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      max-width: 640px;
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+    }
+
+    .camera {
+      margin-bottom: 20px;
+      background: #000;
+      display: flex;
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0;
+    }
+
+    .results {
+      padding-top: 20px;
+    }
+
+    .camera video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    input,
+    select {
+      border: 1px solid #e5e6e7;
+      padding: 10px 15px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #393564;
+    }
+
+    button {
+      padding: 15px 20px;
+      background: linear-gradient(90deg, #7CBFF4 0%, #DF7DDA 100%);
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      color: #fff;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-example">
+    <label for="front_image">
+      Choose front image:
+      <input type="file" name="front_image" id="front_image">
+    </label>
+    <label for="side_image">
+      Choose side image:
+      <input type="file" name="side_image" id="side_image">
+    </label>
+    <label for="gender">
+      Choose gender:
+      <select name="gender" id="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+      </select>
+    </label>
+    <label for="height">
+      Enter height:
+      <input type="number" name="height" id="height" value="170">
+    </label>
+    
+    <p>Execution status: <span id="status"></span></p>
+    <button id="start" type="button">START</button>
+    <pre id="results" class="results"></pre>
+  </div>
+  
+  <script src="../dist/saia-sdk.js"></script>
+  <script>
+    window.onload = function () {
+      const frontImage = document.getElementById('front_image');
+      const sideImage = document.getElementById('side_image');
+      const gender = document.getElementById('gender');
+      const height = document.getElementById('height');
+      const startBtn = document.getElementById('start');
+      const results = document.getElementById('results');
+      const status = document.getElementById('status');
+
+      const saia = new SAIA({
+        key: '<YOUR_API_KEY>',
+      });
+
+      status.innerHTML = 'Starting';
+
+      startBtn.addEventListener('click', () => {
+        let frontImage64;
+        let sideImage64;
+        saia.utils.getBase64(frontImage.files[0])
+          .then((base64) => {
+            frontImage64 = base64;
+            return saia.utils.getBase64(sideImage.files[0]);
+          })
+          .then((base64) => {
+            sideImage64 = base64;
+            return saia.api.person.create({
+              gender: gender.value,
+              height: height.value,
+              frontImage: frontImage64,
+              sideImage: sideImage64,
+            });
+          })
+          .then((taskSetId) => {
+            status.innerHTML = 'Processing...';
+
+            return saia.api.queue.getResults(taskSetId);
+          })
+          .then((person) => {
+            status.innerHTML = 'Finished';
+
+            results.innerHTML = JSON.stringify(person, null, '  ');;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      });
+    };
+  </script>
+</body>
+</html>
