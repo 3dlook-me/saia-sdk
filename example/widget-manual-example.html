@@ -122,24 +122,26 @@
 
       const saia = new SAIA({
         key: 'YOUR_API_KEY',
+      });
+
+      const widget = saia.widget.create({
         showStatus: status,
         statusEl: status,
       });
 
       frontImage.addEventListener('change', () => {
-        saia.saveFrontImage(frontImage.files[0]);
+        widget.saveFrontImage(frontImage.files[0]);
       });
 
       sideImage.addEventListener('change', () => {
-        saia.saveSideImage(sideImage.files[0]);
+        widget.saveSideImage(sideImage.files[0]);
       });
 
       startBtn.addEventListener('click', () => {
-        saia.updatePersonsData(gender.value, parseInt(height.value, 10));
+        widget.updatePersonsData(gender.value, parseInt(height.value, 10));
 
-        saia.postMetadate()
-          .then(() => saia.sendImages())
-          .then(() => saia.getResults())
+        widget.createPerson()
+          .then(() => widget.getResults())
           .then((results) => {
             resultsEl.innerHTML = JSON.stringify(results, null, '  ');
           })
