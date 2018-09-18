@@ -36,8 +36,6 @@ const config = {
   output: {
     path: `${__dirname}/dist/`,
     filename: '[name].js',
-    library: 'SAIA',
-    libraryTarget: 'var',
   },
   module: {
     rules: [

@@ -1,4 +1,5 @@
 import SAIA from './lib/saia';
 
-module.exports = SAIA;
+window.SAIA = SAIA;
+
 export default SAIA;
