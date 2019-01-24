@@ -112,7 +112,7 @@ saia.api.person.create({
 ## API
 API wrapper class
 
-**Kind**: global class  
+**Kind**: global class
 <a name="new_API_new"></a>
 
 ### new API(options)
@@ -130,7 +130,7 @@ Class constructor
 ## Person
 Person class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Person](#Person)
     * [new Person(host, axios)](#new_Person_new)
@@ -160,8 +160,8 @@ If you create Person only with metadata, then you will
 get Person's ID. If you create Person with metadata and images,
 you will get Taskset ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - person's id or taskset id  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;string&gt;</code> - person's id or taskset id
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -171,7 +171,7 @@ you will get Taskset ID
 | [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
 | [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -203,14 +203,14 @@ saia.api.person.create({
 ### person.get(id) ⇒ <code>Promise.&lt;Object&gt;</code>
 Get a specific Person by ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;Object&gt;</code> - Person  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;Object&gt;</code> - Person
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> | Person's ID |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -225,8 +225,8 @@ saia.api.person.get(40)
 ### person.update(id, params) ⇒ <code>Promise.&lt;Object&gt;</code>
 Full or Partial update Person by ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -237,7 +237,7 @@ Full or Partial update Person by ID
 | [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
 | [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -255,14 +255,14 @@ saia.api.person.update({
 ### person.calculate(id) ⇒ <code>Promise.&lt;string&gt;</code>
 Manual recalculate Person's parameters by ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - Taskset id  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;string&gt;</code> - Taskset id
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> | Person's ID |
 
-**Example**  
+**Example**
 ```js
 // in this example we update person's images
 // and then manually start recalculation
@@ -283,7 +283,7 @@ saia.api.person.update({
 ## Queue
 Queue class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Queue](#Queue)
     * [new Queue(host, axios)](#new_Queue_new)
@@ -306,13 +306,13 @@ Queue's class constructor
 ### queue.get(id) ⇒ <code>Promise.&lt;object&gt;</code>
 Get information about tasks by taskset id
 
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Kind**: instance method of [<code>Queue</code>](#Queue)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>string</code> | taskset id |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -327,14 +327,14 @@ saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')
 ### queue.getResults(id, [delay]) ⇒ <code>Promise.&lt;object&gt;</code>
 Check task status and if it is success, return person object
 
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Kind**: instance method of [<code>Queue</code>](#Queue)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>string</code> | taskset id |
 | [delay] | <code>number</code> | delay before next check |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -352,7 +352,7 @@ saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e', 3400)
 <a name="Widget"></a>
 
 ## Widget
-**Kind**: global class  
+**Kind**: global class
 
 * [Widget](#Widget)
     * [new Widget(options)](#new_Widget_new)
@@ -393,7 +393,7 @@ Widget class constructor
 | options.statusEl | <code>Element</code> | status element |
 | options.showStatus | <code>boolean</code> | show status |
 
-**Example**  
+**Example**
 ```js
 const widget = new Widget({
   key: '<your key>'
@@ -404,14 +404,14 @@ const widget = new Widget({
 ### widget.updatePersonsData(gender, height)
 Update person's data
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | gender | <code>string</code> | persons gender |
 | height | <code>number</code> | persons height |
 
-**Example**  
+**Example**
 ```js
 widget.updatePersonsData('male', 184);
 ```
@@ -421,7 +421,7 @@ widget.updatePersonsData('male', 184);
 Create new instance of a person with
 metadata and images
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -431,7 +431,7 @@ metadata and images
 | [data.frontImage] | <code>File</code> \| <code>Blob</code> | person's front image |
 | [data.sideImage] | <code>File</code> \| <code>Blob</code> | person's side image |
 
-**Example**  
+**Example**
 ```js
 // you can pass user's info here
 widget.createPerson({
@@ -448,13 +448,13 @@ widget.createPerson({
 ### widget.saveFrontImage(file)
 Save front image
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>File</code> \| <code>Blob</code> | front image file |
 
-**Example**  
+**Example**
 ```js
 const frontImage;
 
@@ -465,13 +465,13 @@ widget.saveFrontImage(frontImage);
 ### widget.saveSideImage(file)
 Save side image
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>File</code> \| <code>Blob</code> | side image file |
 
-**Example**  
+**Example**
 ```js
 const sideImage;
 
@@ -482,8 +482,8 @@ widget.saveSideImage(sideImage);
 ### widget.getResults() ⇒ <code>Promise.&lt;Object&gt;</code>
 Get results
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
-**Example**  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
+**Example**
 ```js
 // use this method only after saving images,
 // users info and posting metadate
@@ -496,13 +496,13 @@ widget.getResults()
 ### widget.recalculate([id]) ⇒ <code>Promise.&lt;string&gt;</code>
 Recalculate person's parameters
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [id] | <code>number</code> | person instance url |
 
-**Example**  
+**Example**
 ```js
 // if you have updated user's front or side image
 // with .sendFrontImage or .sendSideImage
@@ -517,8 +517,8 @@ widget.recalculate()
 ### widget.getSnapshot() ⇒ <code>Promise.&lt;Blob&gt;</code>
 Get webcam image
 
-**Kind**: instance method of [<code>Widget</code>](#Widget)  
-**Example**  
+**Kind**: instance method of [<code>Widget</code>](#Widget)
+**Example**
 ```js
 // camera should be enabled
 widget.getSnapshot()
@@ -530,7 +530,7 @@ widget.getSnapshot()
 ## Camera
 Camera class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Camera](#Camera)
     * [new Camera(options)](#new_Camera_new)
@@ -556,8 +556,8 @@ Camera class constructor
 ### camera.getImage() ⇒ <code>Promise.&lt;Blob&gt;</code>
 Get webcam image
 
-**Kind**: instance method of [<code>Camera</code>](#Camera)  
-**Example**  
+**Kind**: instance method of [<code>Camera</code>](#Camera)
+**Example**
 ```js
 const camera = new Camera({
   target: document.getElementById('camera'),
@@ -570,7 +570,7 @@ camera.getImage()
 <a name="SAIA"></a>
 
 ## SAIA
-**Kind**: global class  
+**Kind**: global class
 <a name="new_SAIA_new"></a>
 
 ### new SAIA(options)
@@ -583,7 +583,7 @@ SAIA class constructor
 | options.key | <code>string</code> | api key |
 | options.host | <code>string</code> | api host url |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>'
@@ -600,4 +600,6 @@ Linux/macOS
 
 Windows
 
-    $ set API_KEY='<your api key>' && set API_HOST='<host>' && npm test
+    $ set API_KEY=<your api key>
+    $ set API_HOST=<host>
+    $ npm test
