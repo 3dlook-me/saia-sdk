@@ -31,7 +31,7 @@ module.exports = function(config) {
                 loader: 'babel-loader',
                 options: {
                   presets: [
-                    ['env', {
+                    ['@babel/preset-env', {
                       targets: {
                         browsers: ['last 2 versions', 'safari >= 7'],
                       },
@@ -45,8 +45,8 @@ module.exports = function(config) {
       },
       plugins: [
         new webpack.DefinePlugin({
-          API_HOST: process.env.API_HOST,
-          API_KEY: process.env.API_KEY,
+          API_HOST: JSON.stringify(process.env.API_HOST),
+          API_KEY: JSON.stringify(process.env.API_KEY),
         }),
       ],
       watch: true
