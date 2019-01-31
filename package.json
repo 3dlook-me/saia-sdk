@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production && webpack --progress",
-    "build:prod": "NODE_ENV=production && webpack --progress",
+    "build": "export NODE_ENV=production && webpack --progress",
+    "build:prod": "export NODE_ENV=production && webpack --progress",
     "build:win": "set NODE_ENV=development && webpack --progress",
     "build:prod:win": "set NODE_ENV=production && webpack --progress",
     "docs": "jsdoc -r ./lib -c .jsdoc.json -d docs",
@@ -45,6 +45,7 @@
     "karma-webpack": "^3.0.5",
     "minami": "^1.2.3",
     "puppeteer": "^1.11.0",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"

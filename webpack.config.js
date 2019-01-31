@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 const mode = (NODE_ENV && NODE_ENV.trim() === 'production') ? 'production' : 'development';
-
+console.log(mode === 'development');
 /**
  * Building paths
  */
@@ -47,7 +47,7 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: [
-                ['env', {
+                ['@babel/env', {
                   targets: {
                     browsers: ['last 2 versions', 'safari >= 7'],
                   },
