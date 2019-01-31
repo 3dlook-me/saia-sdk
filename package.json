@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "export NODE_ENV=development && webpack --progress",
     "build": "export NODE_ENV=production && webpack --progress",
     "build:prod": "export NODE_ENV=production && webpack --progress",
     "build:win": "set NODE_ENV=development && webpack --progress",
