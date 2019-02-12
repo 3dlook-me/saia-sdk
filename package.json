@@ -1,7 +1,7 @@
 {
-  "name": "saia-sdk",
+  "name": "@3dlook/saia-sdk",
   "version": "2.1.0",
-  "description": "",
+  "description": "## Install",
   "main": "index.js",
   "scripts": {
     "start": "export NODE_ENV=development && webpack --progress",
@@ -18,8 +18,8 @@
     "type": "git",
     "url": "git+https://Hachapury@bitbucket.org/Hachapury/saia-sdk.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["3dlook", "saia", "sdk"],
+  "author": "3DLOOK",
   "license": "ISC",
   "homepage": "https://bitbucket.org/Hachapury/saia-sdk#readme",
   "dependencies": {
@@ -50,5 +50,10 @@
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
   }
 }
