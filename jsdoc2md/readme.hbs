@@ -1,8 +1,20 @@
 # SAIA Javascript SDK
 
-## Install
+## Installing
 
-To use this sdk on your website, you need to include a saia-sdk.js file in footer section of a page.
+Using npm:
+
+```sh
+npm install --save @3dlook/saia-sdk
+```
+
+Build it with the following command:
+
+```sh
+npm run build:prod
+```
+
+To use this sdk on your website, you need to include saia-sdk.js file in a footer section of a page:
 
 ```html
 <script src="saia-sdk.js"></script>
