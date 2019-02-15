@@ -13,7 +13,8 @@
     "docma": "docma -c .docma.json && node jsdoc2md/prepareDocs.js",
     "readme": "jsdoc2md --template ./jsdoc2md/readme.hbs --files lib/**/*.js lib/*.js -c .jsdoc.json > README.md",
     "test": "npm run lint && karma start karma.config.js --log-level debug --single-run",
-    "lint": "eslint lib"
+    "lint": "eslint lib",
+    "prepublish": "npm run test && npm run readme"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "jsdoc-to-markdown": "^4.0.1",
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
     "karma-jasmine": "^2.0.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.32",

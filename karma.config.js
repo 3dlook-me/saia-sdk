@@ -11,12 +11,14 @@ module.exports = function(config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      { pattern: 'test-context.js', watched: false }
+      { pattern: 'lib/**/*js' },
+      { pattern: 'test/*.spec.js' }
     ],
     exclude: [
     ],
     preprocessors: {
-      'test-context.js': ['webpack', 'sourcemap']
+      'lib/**/*js': ['webpack', 'sourcemap', 'coverage'],
+      'test/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: {
       mode,
@@ -54,7 +56,10 @@ module.exports = function(config) {
     webpackServer: {
       noInfo: true
     },
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage'],
+    coverageReporter: {
+      type: 'text'
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
