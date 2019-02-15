@@ -13,6 +13,7 @@
     "docma": "docma -c .docma.json && node jsdoc2md/prepareDocs.js",
     "readme": "jsdoc2md --template ./jsdoc2md/readme.hbs --files lib/**/*.js lib/*.js -c .jsdoc.json > README.md",
     "test": "npm run lint && karma start karma.config.js --log-level debug --single-run",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint lib",
     "prepublish": "npm run test && npm run readme"
   },
@@ -37,6 +38,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
+    "coveralls": "^3.0.2",
     "docma": "^3.2.2",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",

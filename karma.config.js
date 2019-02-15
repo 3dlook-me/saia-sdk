@@ -58,7 +58,9 @@ module.exports = function(config) {
     },
     reporters: ['spec', 'coverage'],
     coverageReporter: {
-      type: 'text'
+      type: 'lcov',
+      dir: 'coverage/',
+      subdir: '.'
     },
     port: 9876,
     colors: true,
