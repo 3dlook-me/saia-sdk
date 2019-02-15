@@ -12,7 +12,8 @@
     "docs": "jsdoc -r ./lib -c .jsdoc.json -d docs",
     "docma": "docma -c .docma.json && node jsdoc2md/prepareDocs.js",
     "readme": "jsdoc2md --template ./jsdoc2md/readme.hbs --files lib/**/*.js lib/*.js -c .jsdoc.json > README.md",
-    "test": "karma start karma.config.js --log-level debug --single-run"
+    "test": "npm run lint && karma start karma.config.js --log-level debug --single-run",
+    "lint": "eslint lib"
   },
   "repository": {
     "type": "git",
