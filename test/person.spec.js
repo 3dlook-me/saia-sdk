@@ -180,7 +180,7 @@ describe('Person', function () {
   describe('calculate', () => {
 
     it('should throw an error if id is not passed', (done) => {
-      expect(() => person.update()).toThrow(new Error('id is not specified'));
+      expect(() => person.calculate()).toThrow(new Error('id is not specified'));
 
       return done();
     });
