@@ -1,5 +1,7 @@
 # SAIA Javascript SDK
 
+[![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=development)](https://travis-ci.org/3dlook-me/saia-sdk)
+
 ## Installing
 
 Using npm:
@@ -320,6 +322,7 @@ Product class
 * [Product](#Product)
     * [new Product(host, axios)](#new_Product_new)
     * [.getSize(params)](#Product+getSize) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.getRecommendations(params)](#Product+getRecommendations) ⇒ <code>Promise.&lt;object&gt;</code>
 
 <a name="new_Product_new"></a>
 
@@ -335,7 +338,8 @@ Product's class constructor
 <a name="Product+getSize"></a>
 
 ### product.getSize(params) ⇒ <code>Promise.&lt;object&gt;</code>
-Get sizes for product based on person parameters
+Get sizes for product based on person parameters.
+This method uses old implemendation of a size recommendation method
 
 **Kind**: instance method of [<code>Product</code>](#Product)  
 
@@ -356,6 +360,41 @@ const saia = new SAIA({
 });
 
 saia.api.product.getSize({
+  height: 173,
+  gender: 'female',
+  hips: 89,
+  chest: 87,
+  waist: 73,
+  url: 'https://saia.3dlook.me/test-product',
+})
+  .then(size => console.log(size))
+  .catch(err => console.log(err));
+```
+<a name="Product+getRecommendations"></a>
+
+### product.getRecommendations(params) ⇒ <code>Promise.&lt;object&gt;</code>
+Get size recommendations for a selected product based on user measurements.
+This method uses new implementation of a size recommendation method.
+
+**Kind**: instance method of [<code>Product</code>](#Product)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>Object</code> | parameters |
+| params.height | <code>number</code> | person's height |
+| params.gender | <code>string</code> | person's gender |
+| params.hips | <code>number</code> | person's volume_params.hips |
+| params.chest | <code>number</code> | person's volume_params.chest |
+| params.waist | <code>number</code> | person's volume_params.waist |
+| params.url | <code>string</code> | product url |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.product.getRecommendations({
   height: 173,
   gender: 'female',
   hips: 89,
@@ -693,7 +732,7 @@ Camera class
 
 * [Camera](#Camera)
     * [new Camera(options)](#new_Camera_new)
-    * [.getImage()](#Camera+getImage) ⇒ <code>Promise.&lt;Blob&gt;</code>
+    * [.getImage()](#Camera.getImage) ⇒ <code>Promise.&lt;Blob&gt;</code>
 
 <a name="new_Camera_new"></a>
 
@@ -710,12 +749,12 @@ Camera class constructor
 | options.mirror | <code>boolean</code> | flip horizontaly |
 | options.fps | <code>number</code> | number of frames per second |
 
-<a name="Camera+getImage"></a>
+<a name="Camera.getImage"></a>
 
-### camera.getImage() ⇒ <code>Promise.&lt;Blob&gt;</code>
+### Camera.getImage() ⇒ <code>Promise.&lt;Blob&gt;</code>
 Get webcam image
 
-**Kind**: instance method of [<code>Camera</code>](#Camera)  
+**Kind**: static method of [<code>Camera</code>](#Camera)  
 **Example**  
 ```js
 const camera = new Camera({
