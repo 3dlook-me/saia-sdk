@@ -116,6 +116,40 @@ describe('Sizechart', function () {
       return done();
     });
 
+    it('should return null if cannot find size for person', (done) => {
+      return sizechart.getSize({
+        gender: 'male',
+        hips: 103.58209330663,
+        chest: 111.323216351622,
+        waist: 86.9746376850148,
+        body_part: 'top',
+        brand: '123123123',
+      })
+      .then((r) => {
+        expect(r).toBeNull();
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+    it('should throw an error if brand or body part doesn\'t exist', (done) => {
+      return sizechart.getSize({
+        gender: 'male',
+        hips: 89,
+        chest: 87,
+        waist: 73,
+        body_part: 'top',
+        brand: 'brand123',
+      })
+      .catch(err => {
+        expect(err).toBeTruthy();
+        return done();
+      });
+    });
+
     it('should get size based on person\'s parameters', (done) => {
       return sizechart.getSize({
         gender: 'male',
