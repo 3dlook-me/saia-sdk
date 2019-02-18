@@ -38,6 +38,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
+    "babel-plugin-istanbul": "^5.1.1",
     "coveralls": "^3.0.2",
     "docma": "^3.2.2",
     "eslint": "^5.12.1",

@@ -4,21 +4,33 @@ const webpack = require('webpack');
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 const NODE_ENV = process.env.NODE_ENV;
+const COVERALLS = process.env.COVERALLS;
 const mode = (NODE_ENV && NODE_ENV.trim() === 'production') ? 'production' : 'development';
+
+let coverageReporter = {
+  type: 'html',
+};
+
+if (COVERALLS) {
+  coverageReporter = {
+    type: 'lcov',
+    dir: 'coverage/',
+    subdir: '.',
+  };
+}
 
 module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      { pattern: 'lib/**/*js' },
-      { pattern: 'test/*.spec.js' }
+      { pattern: 'test-context.js', watched: false },
     ],
     exclude: [
     ],
     preprocessors: {
-      'lib/**/*js': ['webpack', 'sourcemap', 'coverage'],
-      'test/*.spec.js': ['webpack', 'sourcemap']
+      'test-context.js': ['webpack', 'sourcemap'],
+      'lib/**/*js': ['coverage'],
     },
     webpack: {
       mode,
@@ -39,6 +51,9 @@ module.exports = function(config) {
                       },
                     }],
                   ],
+                  plugins: [
+                    ["istanbul"]
+                  ],
                 },
               },
             ],
@@ -57,11 +72,7 @@ module.exports = function(config) {
       noInfo: true
     },
     reporters: ['spec', 'coverage'],
-    coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage/',
-      subdir: '.'
-    },
+    coverageReporter,
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
