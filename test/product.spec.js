@@ -137,4 +137,105 @@ describe('Product', function () {
 
   });
 
+  describe('getRecommendations', () => {
+
+    it('should throw an error if no parameters passed', (done) => {
+      expect(() => product.getRecommendations()).toThrow(new Error('params is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if height is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        gender: 'female',
+        hips: 89,
+        chest: 87,
+        waist: 73,
+        url: 'https://saia.3dlook.me/test-product',
+      })).toThrow(new Error('height is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if gender is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        height: 173,
+        hips: 89,
+        chest: 87,
+        waist: 73,
+        url: 'https://saia.3dlook.me/test-product',
+      })).toThrow(new Error('gender is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if hips is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        height: 173,
+        gender: 'female',
+        chest: 87,
+        waist: 73,
+        url: 'https://saia.3dlook.me/test-product',
+      })).toThrow(new Error('hips is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if chest is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        height: 173,
+        gender: 'female',
+        hips: 89,
+        waist: 73,
+        url: 'https://saia.3dlook.me/test-product',
+      })).toThrow(new Error('chest is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if waist is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        height: 173,
+        gender: 'female',
+        hips: 89,
+        chest: 87,
+        url: 'https://saia.3dlook.me/test-product',
+      })).toThrow(new Error('waist is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if url is not passed', (done) => {
+      expect(() => product.getRecommendations({
+        height: 173,
+        gender: 'female',
+        hips: 89,
+        chest: 87,
+        waist: 73,
+      })).toThrow(new Error('url is not specified'));
+
+      return done();
+    });
+
+    it('should get size based on person\'s parameters', (done) => {
+      return product.getRecommendations({
+        height: 173,
+        gender: 'female',
+        hips: 89,
+        chest: 87,
+        waist: 73,
+        url: 'https://saia.3dlook.me/test-product',
+      })
+      .then((r) => {
+        expect(typeof r).toEqual('object');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+
 });
