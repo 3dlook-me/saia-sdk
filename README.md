@@ -381,7 +381,6 @@ This method uses new implementation of a size recommendation method.
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>Object</code> | parameters |
-| params.height | <code>number</code> | person's height |
 | params.gender | <code>string</code> | person's gender |
 | params.hips | <code>number</code> | person's volume_params.hips |
 | params.chest | <code>number</code> | person's volume_params.chest |
@@ -395,7 +394,6 @@ const saia = new SAIA({
 });
 
 saia.api.product.getRecommendations({
-  height: 173,
   gender: 'female',
   hips: 89,
   chest: 87,
