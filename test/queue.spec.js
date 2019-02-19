@@ -77,12 +77,39 @@ describe('Queue', function () {
 
   });
 
+  describe('checkStatus', () => {
+    it('should throw an error if task set id is incorrect', (done) => {
+      return queue.checkStatus('faketasksetid', 500)
+      .catch((err) => {
+        expect(err).toBeTruthy();
+        return done();
+      });
+    });
+  });
+
   describe('getResults', () => {
 
     it('should throw an error if id is not specified', (done) => {
       expect(() => queue.getResults()).toThrow(new Error('id is not specified'));
 
       return done();
+    });
+
+    it('should throw an error if side image was sent as front image or front image as side image', (done) => {
+      return person.create({
+        gender: 'male',
+        height: 170,
+        frontImage: sideImage,
+        sideImage: frontImage,
+      })
+      .then((taskSetId) => {
+        expect(typeof taskSetId).toEqual('string');
+        return queue.getResults(taskSetId);
+      })
+      .catch(err => {
+        expect(err).toBeTruthy();
+        return done();
+      });
     });
 
     it('should get person object when tasks finish', (done) => {
