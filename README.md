@@ -1,6 +1,6 @@
 # SAIA Javascript SDK
 
-[![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=development)](https://travis-ci.org/3dlook-me/saia-sdk)
+[![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=master)](https://travis-ci.org/3dlook-me/saia-sdk)
 
 ## Installing
 
@@ -321,7 +321,7 @@ Product class
 
 * [Product](#Product)
     * [new Product(host, axios)](#new_Product_new)
-    * [.get(url)](#Product+get) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.get(url)](#Product+get) ⇒ <code>Promise.&lt;(Object\|Array)&gt;</code>
     * [.getSize(params)](#Product+getSize) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getRecommendations(params)](#Product+getRecommendations) ⇒ <code>Promise.&lt;object&gt;</code>
 
@@ -338,8 +338,9 @@ Product's class constructor
 
 <a name="Product+get"></a>
 
-### product.get(url) ⇒ <code>Promise.&lt;object&gt;</code>
-Get product object by its page url
+### product.get(url) ⇒ <code>Promise.&lt;(Object\|Array)&gt;</code>
+Get product object/objects by its page url.
+It can return an array if two or more products have the same url
 
 **Kind**: instance method of [<code>Product</code>](#Product)  
 
