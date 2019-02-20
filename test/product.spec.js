@@ -220,4 +220,26 @@ describe('Product', function () {
 
   });
 
+  describe('get', () => {
+
+    it('should throw an error if url is not passed', (done) => {
+      expect(() => product.get(null)).toThrow(new Error('url is not specified'));
+
+      return done();
+    });
+
+    it('should get product by its url', (done) => {
+      return product.get('https://saia.3dlook.me/test-product')
+        .then((r) => {
+          expect(typeof r).toEqual('object');
+          return done();
+        })
+        .catch(err => {
+          expect(err).toBe(null);
+          return done();
+        });
+    });
+
+  });
+
 });
