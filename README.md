@@ -321,6 +321,7 @@ Product class
 
 * [Product](#Product)
     * [new Product(host, axios)](#new_Product_new)
+    * [.get(url)](#Product+get) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getSize(params)](#Product+getSize) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getRecommendations(params)](#Product+getRecommendations) ⇒ <code>Promise.&lt;object&gt;</code>
 
@@ -335,6 +336,27 @@ Product's class constructor
 | host | <code>string</code> | host url |
 | axios | <code>Axios</code> | axios instance |
 
+<a name="Product+get"></a>
+
+### product.get(url) ⇒ <code>Promise.&lt;object&gt;</code>
+Get product object by its page url
+
+**Kind**: instance method of [<code>Product</code>](#Product)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>string</code> | product page url |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.product.get('https://saia.3dlook.me/test-product')
+  .then(product => console.log(product))
+  .catch(err => console.log(err));
+```
 <a name="Product+getSize"></a>
 
 ### product.getSize(params) ⇒ <code>Promise.&lt;object&gt;</code>
