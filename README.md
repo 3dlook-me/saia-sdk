@@ -171,6 +171,7 @@ Person class
     * [.create(params)](#Person+create) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.get(id)](#Person+get) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.update(id, params)](#Person+update) ⇒ <code>Promise.&lt;Object&gt;</code>
+    * [.updateAndCalculate(id, params)](#Person+updateAndCalculate) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.calculate(id)](#Person+calculate) ⇒ <code>Promise.&lt;string&gt;</code>
 
 <a name="new_Person_new"></a>
@@ -257,7 +258,8 @@ saia.api.person.get(40)
 <a name="Person+update"></a>
 
 ### person.update(id, params) ⇒ <code>Promise.&lt;Object&gt;</code>
-Full or Partial update Person by ID
+Full or Partial update Person by ID. Returns person's object
+with metadate.
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
 **Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters  
@@ -277,11 +279,43 @@ const saia = new SAIA({
   key: '<your key>',
 });
 
-saia.api.person.update({
+saia.api.person.update(personId, {
   frontImage: <frontImage>,
   sideImage: <sideImage>,
 })
   .then(updatedFields => console.log(updatedFields))
+  .catch(err => console.log(err));
+```
+<a name="Person+updateAndCalculate"></a>
+
+### person.updateAndCalculate(id, params) ⇒ <code>Promise.&lt;string&gt;</code>
+Update a new Person by ID with calculation start.
+Returns person's task set id.
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - task set url  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | Person''s ID |
+| params | <code>Object</code> | Person's parameters |
+| [params.gender] | <code>string</code> | Person's parameters |
+| [params.height] | <code>number</code> | Person's height |
+| [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
+| [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+saia.api.person.updateAndCalculate(personId, {
+  frontImage: <frontImage>,
+  sideImage: <sideImage>,
+})
+  .then(taskSetUrl => saia.api.queue.getResults(taskSetUrl))
+  .then(person => console.log(person))
   .catch(err => console.log(err));
 ```
 <a name="Person+calculate"></a>
