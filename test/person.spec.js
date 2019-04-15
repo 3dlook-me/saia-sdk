@@ -177,6 +177,51 @@ describe('Person', function () {
 
   });
 
+  describe('updateAndCalculate', () => {
+
+    it('should throw an error if id is not passed', (done) => {
+      expect(() => person.updateAndCalculate()).toThrow(new Error('id is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if params is not passed', (done) => {
+      expect(() => person.updateAndCalculate(12)).toThrow(new Error('params is not specified'));
+
+      return done();
+    });
+
+    it('should throw an error if params is empty', (done) => {
+      expect(() => person.updateAndCalculate(12, {})).toThrow(new Error('params is empty'));
+
+      return done();
+    });
+
+    it('should updateAndCalculate person\'s data by id', (done) => {
+
+      return person.create({
+        height: 170,
+        gender: 'male',
+      })
+      .then((id) => {
+        return person.updateAndCalculate(id, {
+          frontImage,
+          sideImage,
+        });
+      })
+      .then((p) => {
+        expect(typeof p).toEqual('string');
+
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+  });
+
   describe('calculate', () => {
 
     it('should throw an error if id is not passed', (done) => {
