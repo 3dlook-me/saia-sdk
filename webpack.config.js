@@ -36,6 +36,10 @@ const config = {
   output: {
     path: `${__dirname}/dist/`,
     filename: '[name].js',
+    library: 'SAIA',
+    libraryExport: 'default',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
   },
   module: {
     rules: [
