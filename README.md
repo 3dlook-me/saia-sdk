@@ -1,6 +1,8 @@
 # SAIA Javascript SDK
 
 [![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=master)](https://travis-ci.org/3dlook-me/saia-sdk)
+[![Version](https://img.shields.io/npm/v/@3dlook/saia-sdk.svg?color=f&logo=%403dlook%2Fsaia-sdk)](https://npmjs.com/package/@3dlook/saia-sdk)
+[![Dependencies](https://img.shields.io/david/3dlook-me/saia-sdk.svg)](https://www.npmjs.com/package/@3dlook/saia-sdk?activeTab=dependencies)
 
 ## Installing
 
