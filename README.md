@@ -1,6 +1,8 @@
 # SAIA Javascript SDK
 
 [![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=master)](https://travis-ci.org/3dlook-me/saia-sdk)
+[![Version](https://img.shields.io/npm/v/@3dlook/saia-sdk.svg?color=f&logo=%403dlook%2Fsaia-sdk)](https://npmjs.com/package/@3dlook/saia-sdk)
+[![Dependencies](https://img.shields.io/david/3dlook-me/saia-sdk.svg)](https://www.npmjs.com/package/@3dlook/saia-sdk?activeTab=dependencies)
 
 ## Installing
 
@@ -16,9 +18,67 @@ Build it with the following command:
 npm run build:prod
 ```
 
+To use this sdk on your website, you need to include saia-sdk.js file in a footer section of a page:
+
+```html
+<script src="saia-sdk.js"></script>
+```
+
 ## Usage
 
-SAIA Javascript SDK works as an API wrapper. To use it, you only need to create a new instance of the SAIA class and then call methods that you need.
+SAIA Javascript SDK can work in two modes: as a widget and as a API wrapper. For the first mode you should prepare a basic markup like this:
+
+```html
+<div id="camera"></div>
+
+<input type="file" name="front_image" id="front_image">
+<button id="front_image_web" type="button">Get front photo from webcam</button>
+
+<input type="file" name="side_image" id="side_image">
+<button id="side_image_web" type="button">Get side photo from webcam</button>
+
+<select name="gender" id="gender">
+  <option value="male">male</option>
+  <option value="female">female</option>
+</select>
+
+<input type="number" name="height" id="height">
+
+<span id="status"></span>
+<button id="start" type="button">START</button>
+<div id="results"></div>
+```
+
+Then you need to initialize widget like this:
+
+```js
+var saia = new SAIA({
+  key: '<your api key>',
+});
+
+var widget = saia.widget.create({
+  camera: {
+    enabled: true,
+    width: 600,
+    height: 320,
+    target: document.getElementById('camera'),
+  },
+  frontImageEl: document.getElementById('front_image'),
+  sideImageEl: document.getElementById('side_image'),
+  genderEl: document.getElementById('gender'),
+  heightEl: document.getElementById('height'),
+  startButtonEl: document.getElementById('start'),
+  frontImageCamEl: document.getElementById('front_image_web'),
+  sideImageCamEl: document.getElementById('side_image_web'),
+  statusEl: document.getElementById('status'),
+  resultsEl: document.getElementById('results'),
+  showStatus: true,
+});
+```
+
+and... that's it. After this you will get a fully functional application, that can send photos to our API, can work with device camera and receive a result.
+
+To use SDK as API wrapper, you only need to create a new instance of the SAIA class and then call methods that you need.
 
 Example:
 
@@ -60,6 +120,11 @@ saia.api.person.create({
 <dt><a href="#Sizechart">Sizechart</a></dt>
 <dd><p>Product class</p>
 </dd>
+<dt><a href="#Widget">Widget</a></dt>
+<dd></dd>
+<dt><a href="#Camera">Camera</a></dt>
+<dd><p>Camera class</p>
+</dd>
 <dt><a href="#SAIA">SAIA</a></dt>
 <dd></dd>
 </dl>
@@ -96,13 +161,6 @@ Class constructor
 | options.host | <code>string</code> | API url |
 | options.key | <code>string</code> | API key |
 
-**Example**  
-```js
-const api = new API({
-  key: '<your key>',
-  host: '<api host url>',
-});
-```
 <a name="Person"></a>
 
 ## Person
@@ -147,7 +205,6 @@ you will get Taskset ID
 | params | <code>object</code> | person's parameters |
 | params.gender | <code>string</code> | person's gender |
 | params.height | <code>number</code> | person's height |
-| [params.measurementsType] | <code>string</code> | type of measurements - all |
 | [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
 | [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
 
@@ -244,7 +301,6 @@ Returns person's task set id.
 | --- | --- | --- |
 | id | <code>number</code> | Person''s ID |
 | params | <code>Object</code> | Person's parameters |
-| [params.measurementsType] | <code>string</code> | type of measurements - all |
 | [params.gender] | <code>string</code> | Person's parameters |
 | [params.height] | <code>number</code> | Person's height |
 | [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
@@ -532,6 +588,239 @@ saia.api.sizechart.getSize({
 })
   .then(size => console.log(size))
   .catch(err => console.log(err));
+```
+<a name="Widget"></a>
+
+## Widget
+**Kind**: global class  
+
+* [Widget](#Widget)
+    * [new Widget(options)](#new_Widget_new)
+    * [.updatePersonsData(gender, height)](#Widget+updatePersonsData)
+    * [.createPerson([data])](#Widget+createPerson) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.saveFrontImage(file)](#Widget+saveFrontImage)
+    * [.saveSideImage(file)](#Widget+saveSideImage)
+    * [.setProductUrl(productUrl)](#Widget+setProductUrl)
+    * [.getResults()](#Widget+getResults) ⇒ <code>Promise.&lt;Object&gt;</code>
+    * [.recalculate([id])](#Widget+recalculate) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.getSnapshot()](#Widget+getSnapshot) ⇒ <code>Promise.&lt;Blob&gt;</code>
+
+<a name="new_Widget_new"></a>
+
+### new Widget(options)
+Widget class constructor
+
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  | config parameters |
+| options.key | <code>string</code> |  | api key |
+| options.host | <code>string</code> |  | api host url |
+| [options.delay] | <code>number</code> | <code>2000</code> | delay between check results requests |
+| options.camera | <code>Object</code> |  | webcam settings object |
+| [options.camera.enabled] | <code>boolean</code> | <code>false</code> | enable webcam |
+| [options.camera.width] | <code>number</code> | <code>640</code> | webcam preview width |
+| [options.camera.height] | <code>number</code> | <code>480</code> | webcam preview height |
+| options.camera.target | <code>string</code> |  | webcam preview parrent element |
+| [options.camera.fps] | <code>number</code> | <code>30</code> | webcam preview frames per second |
+| [options.camera.mirror] | <code>boolean</code> | <code>false</code> | flip webcam image horizontaly |
+| options.frontImageEl | <code>Element</code> |  | front image input element |
+| options.sideImageEl | <code>Element</code> |  | side image input element |
+| options.genderEl | <code>Element</code> |  | gender input element |
+| options.heightEl | <code>Element</code> |  | height input element |
+| options.frontImageCamEl | <code>Element</code> |  | front image snap button |
+| options.sideImageCamEl | <code>Element</code> |  | side image snap button |
+| options.startButtonEl | <code>Element</code> |  | start flow button |
+| options.resultsEl | <code>Element</code> |  | results container element |
+| options.statusEl | <code>Element</code> |  | status element |
+| options.showStatus | <code>boolean</code> |  | show status |
+| [options.outputMode] | <code>string</code> | <code>&quot;params&quot;</code> | output mode, which specifies what type of information user want to see after finish the requests. Aviable modes: 'params' and 'sizes'. 'params' displays in resultsEl person's body parameters: front/side/volume chest, waist and hips. 'sizes' displays in resultsEl product size which is recomended for user for specific product based on user's body parameters |
+| [options.outputFunc] | <code>function</code> |  | custom output function. Received parameters: el, person, sizes. It will receive 'sizes' only, if you set productUrl by using widget.setProductUrl method |
+
+**Example**  
+```js
+const widget = new Widget({
+  key: '<your key>'
+});
+```
+<a name="Widget+updatePersonsData"></a>
+
+### widget.updatePersonsData(gender, height)
+Update person's data
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| gender | <code>string</code> | persons gender |
+| height | <code>number</code> | persons height |
+
+**Example**  
+```js
+widget.updatePersonsData('male', 184);
+```
+<a name="Widget+createPerson"></a>
+
+### widget.createPerson([data]) ⇒ <code>Promise.&lt;string&gt;</code>
+Create new instance of a person with
+metadata and images
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [data] | <code>Object</code> | person's data |
+| [data.height] | <code>number</code> | person's height |
+| [data.gender] | <code>string</code> | person's gender |
+| [data.frontImage] | <code>File</code> \| <code>Blob</code> | person's front image |
+| [data.sideImage] | <code>File</code> \| <code>Blob</code> | person's side image |
+
+**Example**  
+```js
+// you can pass user's info here
+widget.createPerson({
+    gender: 'female',
+    height: 170,
+    frontImage: frontImageFile,
+    sideImage: sideImageFile,
+  })
+  .then(url => console.log(url))
+  .catch(err => console.error(err));
+```
+<a name="Widget+saveFrontImage"></a>
+
+### widget.saveFrontImage(file)
+Save front image
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| file | <code>File</code> \| <code>Blob</code> | front image file |
+
+**Example**  
+```js
+const frontImage;
+
+widget.saveFrontImage(frontImage);
+```
+<a name="Widget+saveSideImage"></a>
+
+### widget.saveSideImage(file)
+Save side image
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| file | <code>File</code> \| <code>Blob</code> | side image file |
+
+**Example**  
+```js
+const sideImage;
+
+widget.saveSideImage(sideImage);
+```
+<a name="Widget+setProductUrl"></a>
+
+### widget.setProductUrl(productUrl)
+Set product url. Uses with outputMode='sizes'
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| productUrl | <code>string</code> | product url |
+
+<a name="Widget+getResults"></a>
+
+### widget.getResults() ⇒ <code>Promise.&lt;Object&gt;</code>
+Get results
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Example**  
+```js
+// use this method only after saving images,
+// users info and posting metadate
+widget.getResults()
+  .then(result => console.log(result))
+  .catch(err => console.error(err));
+```
+<a name="Widget+recalculate"></a>
+
+### widget.recalculate([id]) ⇒ <code>Promise.&lt;string&gt;</code>
+Recalculate person's parameters
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [id] | <code>number</code> | person instance url |
+
+**Example**  
+```js
+// if you have updated user's front or side image
+// with .sendFrontImage or .sendSideImage
+// you could recalculate person's parameters
+
+widget.recalculate()
+  .then(taskSetUrl => console.log(taskSetUrl))
+  .catch(err => console.error(err));
+```
+<a name="Widget+getSnapshot"></a>
+
+### widget.getSnapshot() ⇒ <code>Promise.&lt;Blob&gt;</code>
+Get webcam image
+
+**Kind**: instance method of [<code>Widget</code>](#Widget)  
+**Example**  
+```js
+// camera should be enabled
+widget.getSnapshot()
+  .then(image => widget.saveFrontImage(image))
+  .catch(err => console.error(err));
+```
+<a name="Camera"></a>
+
+## Camera
+Camera class
+
+**Kind**: global class  
+
+* [Camera](#Camera)
+    * [new Camera(options)](#new_Camera_new)
+    * [.getImage()](#Camera.getImage) ⇒ <code>Promise.&lt;Blob&gt;</code>
+
+<a name="new_Camera_new"></a>
+
+### new Camera(options)
+Camera class constructor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | options |
+| options.width | <code>number</code> | width of the webcam video |
+| options.height | <code>number</code> | height of the webcam video |
+| options.target | <code>string</code> | selector of the parrent container for webcam preview |
+| options.mirror | <code>boolean</code> | flip horizontaly |
+| options.fps | <code>number</code> | number of frames per second |
+
+<a name="Camera.getImage"></a>
+
+### Camera.getImage() ⇒ <code>Promise.&lt;Blob&gt;</code>
+Get webcam image
+
+**Kind**: static method of [<code>Camera</code>](#Camera)  
+**Example**  
+```js
+const camera = new Camera({
+  target: document.getElementById('camera'),
+});
+
+camera.getImage()
+  .then(image => console.log(image))
+  .catch(err => console.error(err));
 ```
 <a name="SAIA"></a>
 
