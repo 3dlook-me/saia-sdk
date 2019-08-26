@@ -1,16 +1,40 @@
 # SAIA Javascript SDK
 
 [![Build Status](https://travis-ci.org/3dlook-me/saia-sdk.svg?branch=master)](https://travis-ci.org/3dlook-me/saia-sdk)
+[![Version](https://img.shields.io/npm/v/@3dlook/saia-sdk.svg?color=f&logo=%403dlook%2Fsaia-sdk)](https://npmjs.com/package/@3dlook/saia-sdk)
+[![Dependencies](https://img.shields.io/david/3dlook-me/saia-sdk.svg)](https://www.npmjs.com/package/@3dlook/saia-sdk?activeTab=dependencies)
 
 ## Installing
 
-Using npm:
+To install SAIA SDK as npm package into your project, use the following command using npm:
 
 ```sh
 npm install --save @3dlook/saia-sdk
 ```
 
-Build it with the following command:
+# Building
+
+To build SAIA SDK, clone repository to your local machine
+
+with https:
+
+```sh
+git clone https://github.com/3dlook-me/saia-sdk.git
+```
+
+or with ssh:
+
+```sh
+git clone git@github.com:3dlook-me/saia-sdk.git
+```
+
+and then enter into the cloned project directory in the terminal:
+
+```sh
+cd saia-sdk
+```
+
+and build it:
 
 ```sh
 npm run build:prod
