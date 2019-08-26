@@ -80,12 +80,12 @@ module.exports = function(config) {
       captureConsole: true,
       jasmine: {
         random: false,
-        DEFAULT_TIMEOUT_INTERVAL: 60000,
+        DEFAULT_TIMEOUT_INTERVAL: 160000,
       },
     },
     autoWatch: true,
     browsers: ['ChromeHeadless'],
-    browserNoActivityTimeout: 60000,
+    browserNoActivityTimeout: 160000,
     singleRun: false,
     concurrency: Infinity
   })

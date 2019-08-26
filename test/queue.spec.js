@@ -14,7 +14,7 @@ const sideImage = testImages.sideImage;
 describe('Queue', function () {
 
   beforeAll(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 160000;
 
     const axiosInstance = axios.create();
 
