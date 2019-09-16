@@ -72,6 +72,9 @@ saia.api.person.create({
 <dt><a href="#API">API</a></dt>
 <dd><p>API wrapper class</p>
 </dd>
+<dt><a href="#MTMClient">MTMClient</a></dt>
+<dd><p>MTMClient class</p>
+</dd>
 <dt><a href="#Person">Person</a></dt>
 <dd><p>Person class</p>
 </dd>
@@ -127,6 +130,110 @@ const api = new API({
   host: '<api host url>',
 });
 ```
+<a name="MTMClient"></a>
+
+## MTMClient
+MTMClient class
+
+**Kind**: global class  
+
+* [MTMClient](#MTMClient)
+    * [new MTMClient(host, axios)](#new_MTMClient_new)
+    * [.create(params)](#MTMClient+create) ⇒ <code>Promise.&lt;number&gt;</code>
+    * [.createPerson(mtmClientId, params)](#MTMClient+createPerson) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
+
+<a name="new_MTMClient_new"></a>
+
+### new MTMClient(host, axios)
+MTMClient's class constructor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | host url |
+| axios | <code>Axios</code> | axios instance |
+
+<a name="MTMClient+create"></a>
+
+### mtmClient.create(params) ⇒ <code>Promise.&lt;number&gt;</code>
+Create mtm client
+
+**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
+**Returns**: <code>Promise.&lt;number&gt;</code> - mtm client's id  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | mtm client's parameters |
+| params.firstName | <code>string</code> | mtm client's first name |
+| [params.lastName] | <code>string</code> | mtm client's last name |
+| [params.unit] | <code>string</code> | mtm client's unit - cm or in |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+// create person only with metadata
+// and get its id
+saia.api.mtmClient.create({
+  firstName: 'Stephen',
+  lastName: 'King',
+  unit: 'in',
+})
+  .then(mtmClientId => console.log(personId))
+  .catch(err => console.log(err));
+```
+<a name="MTMClient+createPerson"></a>
+
+### mtmClient.createPerson(mtmClientId, params) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
+Create person for mtm client only with metadata (gender and height)
+or with photos (gender, height, frontImage, sideImage).
+
+If you create Person only with metadata, then you will
+get Person's ID. If you create Person with metadata and images,
+you will get Taskset ID
+
+**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
+**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mtmClientId | <code>number</code> | mtm client id |
+| params | <code>object</code> | person's parameters |
+| params.gender | <code>string</code> | person's gender |
+| params.height | <code>number</code> | person's height |
+| [params.measurementsType] | <code>string</code> | type of measurements - all |
+| [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
+| [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+// create person only with metadata
+// and get its id
+saia.api.mtmClient.createPerson(mtmClientId, {
+  gender: 'male',
+  height: 180,
+})
+  .then(personId => console.log(personId))
+  .catch(err => console.log(err));
+
+// create person only with metadata and images
+// and get taskset id. You can use it to track
+// calculation process by using saia.api.queue.getResults(taskSetId)
+saia.api.mtmClient.createPerson(mtmClientId, {
+  gender: 'male',
+  height: 180,
+  frontImage: <frontImage>,
+  sideImage: <sideImage>,
+})
+  .then(taskSetId => console.log(taskSetId))
+  .catch(err => console.log(err));
+```
 <a name="Person"></a>
 
 ## Person
@@ -136,7 +243,7 @@ Person class
 
 * [Person](#Person)
     * [new Person(host, axios)](#new_Person_new)
-    * [.create(params)](#Person+create) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.create(params)](#Person+create) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
     * [.get(id)](#Person+get) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.update(id, params)](#Person+update) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.updateAndCalculate(id, params)](#Person+updateAndCalculate) ⇒ <code>Promise.&lt;string&gt;</code>
@@ -155,7 +262,7 @@ Person's class constructor
 
 <a name="Person+create"></a>
 
-### person.create(params) ⇒ <code>Promise.&lt;string&gt;</code>
+### person.create(params) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
 Create person only with metadata (gender and height)
 or with photos (gender, height, frontImage, sideImage).
 
@@ -164,7 +271,7 @@ get Person's ID. If you create Person with metadata and images,
 you will get Taskset ID
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - person's id or taskset id  
+**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
 
 | Param | Type | Description |
 | --- | --- | --- |
