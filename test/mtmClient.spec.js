@@ -48,12 +48,6 @@ describe('MTMClient', function () {
       return done();
     });
 
-    it('should throw an error if firstName is not passed', (done) => {
-      expect(() => mtmclient.create({})).toThrow(new Error('firstName is not specified'));
-
-      return done();
-    });
-
     it('should throw an error if unit is not passed', (done) => {
       expect(() => mtmclient.create({ firstName: 'firstName' })).toThrow(new Error('unit is not specified'));
 
