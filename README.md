@@ -206,6 +206,9 @@ you will get Taskset ID
 | [params.measurementsType] | <code>string</code> | type of measurements - all |
 | [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
 | [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
+| [params.weight] | <code>string</code> | person's weight in kg |
+| [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
+| [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
 
 **Example**  
 ```js
