@@ -166,7 +166,9 @@ Create mtm client
 | params | <code>object</code> | mtm client's parameters |
 | params.firstName | <code>string</code> | mtm client's first name |
 | [params.lastName] | <code>string</code> | mtm client's last name |
-| [params.unit] | <code>string</code> | mtm client's unit - cm or in |
+| params.unit | <code>string</code> | mtm client's unit - cm or in |
+| [params.phone] | <code>string</code> | mtm client's phone number - cm or in |
+| [params.email] | <code>string</code> | mtm client's email - cm or in |
 
 **Example**  
 ```js
