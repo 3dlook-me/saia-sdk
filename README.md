@@ -652,6 +652,7 @@ Get sizes for brand and body part based on person parameters
 | params.waist | <code>number</code> | person's volume_params.waist |
 | params.body_part | <code>number</code> | body part |
 | params.brand | <code>number</code> | brand name |
+| [params.customRecommendation] | <code>string</code> | custom recommendation url part for our clients. For internal usage only or if you have custom url and you know what you're doing |
 
 **Example**  
 ```js
