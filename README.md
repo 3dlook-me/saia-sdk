@@ -110,7 +110,7 @@ saia.api.person.create({
 ## API
 API wrapper class
 
-**Kind**: global class  
+**Kind**: global class
 <a name="new_API_new"></a>
 
 ### new API(options)
@@ -123,7 +123,7 @@ Class constructor
 | options.host | <code>string</code> | API url |
 | options.key | <code>string</code> | API key |
 
-**Example**  
+**Example**
 ```js
 const api = new API({
   key: '<your key>',
@@ -135,7 +135,7 @@ const api = new API({
 ## MTMClient
 MTMClient class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [MTMClient](#MTMClient)
     * [new MTMClient(host, axios)](#new_MTMClient_new)
@@ -158,8 +158,8 @@ MTMClient's class constructor
 ### mtmClient.create(params) ⇒ <code>Promise.&lt;number&gt;</code>
 Create mtm client
 
-**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
-**Returns**: <code>Promise.&lt;number&gt;</code> - mtm client's id  
+**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)
+**Returns**: <code>Promise.&lt;number&gt;</code> - mtm client's id
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -169,9 +169,10 @@ Create mtm client
 | params.unit | <code>string</code> | mtm client's unit - cm or in |
 | [params.phone] | <code>string</code> | mtm client's phone number - cm or in |
 | [params.email] | <code>string</code> | mtm client's email - cm or in |
+| [params.notes] | <code>string</code> | additional information about mtm client |
 | [params.source] | <code>string</code> | the source of the request - dashboard, widget |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -197,8 +198,8 @@ If you create Person only with metadata, then you will
 get Person's ID. If you create Person with metadata and images,
 you will get Taskset ID
 
-**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
-**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
+**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)
+**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -213,7 +214,7 @@ you will get Taskset ID
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
 | [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -245,7 +246,7 @@ saia.api.mtmClient.createPerson(mtmClientId, {
 ## Person
 Person class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Person](#Person)
     * [new Person(host, axios)](#new_Person_new)
@@ -276,8 +277,8 @@ If you create Person only with metadata, then you will
 get Person's ID. If you create Person with metadata and images,
 you will get Taskset ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -288,7 +289,7 @@ you will get Taskset ID
 | [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
 | [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -320,14 +321,14 @@ saia.api.person.create({
 ### person.get(id) ⇒ <code>Promise.&lt;Object&gt;</code>
 Get a specific Person by ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;Object&gt;</code> - Person  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;Object&gt;</code> - Person
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> | Person's ID |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -343,8 +344,8 @@ saia.api.person.get(40)
 Full or Partial update Person by ID. Returns person's object
 with metadate.
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -355,7 +356,7 @@ with metadate.
 | [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
 | [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -374,8 +375,8 @@ saia.api.person.update(personId, {
 Update a new Person by ID with calculation start.
 Returns person's task set id.
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - task set url  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;string&gt;</code> - task set url
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -387,7 +388,7 @@ Returns person's task set id.
 | [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
 | [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -406,14 +407,14 @@ saia.api.person.updateAndCalculate(personId, {
 ### person.calculate(id) ⇒ <code>Promise.&lt;string&gt;</code>
 Manual recalculate Person's parameters by ID
 
-**Kind**: instance method of [<code>Person</code>](#Person)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - Taskset id  
+**Kind**: instance method of [<code>Person</code>](#Person)
+**Returns**: <code>Promise.&lt;string&gt;</code> - Taskset id
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> | Person's ID |
 
-**Example**  
+**Example**
 ```js
 // in this example we update person's images
 // and then manually start recalculation
@@ -434,7 +435,7 @@ saia.api.person.update({
 ## Product
 Product class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Product](#Product)
     * [new Product(host, axios)](#new_Product_new)
@@ -459,13 +460,13 @@ Product's class constructor
 Get product object/objects by its page url.
 It can return an array if two or more products have the same url
 
-**Kind**: instance method of [<code>Product</code>](#Product)  
+**Kind**: instance method of [<code>Product</code>](#Product)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | url | <code>string</code> | product page url |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -481,7 +482,7 @@ saia.api.product.get('https://saia.3dlook.me/test-product')
 Get sizes for product based on person parameters.
 This method uses old implemendation of a size recommendation method
 
-**Kind**: instance method of [<code>Product</code>](#Product)  
+**Kind**: instance method of [<code>Product</code>](#Product)
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -493,7 +494,7 @@ This method uses old implemendation of a size recommendation method
 | params.waist | <code>number</code> | person's volume_params.waist |
 | params.url | <code>string</code> | product url |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -516,7 +517,7 @@ saia.api.product.getSize({
 Get size recommendations for a selected product based on user measurements.
 This method uses new implementation of a size recommendation method.
 
-**Kind**: instance method of [<code>Product</code>](#Product)  
+**Kind**: instance method of [<code>Product</code>](#Product)
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -527,7 +528,7 @@ This method uses new implementation of a size recommendation method.
 | params.waist | <code>number</code> | person's volume_params.waist |
 | params.url | <code>string</code> | product url |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -548,7 +549,7 @@ saia.api.product.getRecommendations({
 ## Queue
 Queue class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Queue](#Queue)
     * [new Queue(host, axios)](#new_Queue_new)
@@ -571,13 +572,13 @@ Queue's class constructor
 ### queue.get(id) ⇒ <code>Promise.&lt;object&gt;</code>
 Get information about tasks by taskset id
 
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Kind**: instance method of [<code>Queue</code>](#Queue)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>string</code> | taskset id |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -592,14 +593,14 @@ saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')
 ### queue.getResults(id, [delay]) ⇒ <code>Promise.&lt;object&gt;</code>
 Get result of person processing
 
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Kind**: instance method of [<code>Queue</code>](#Queue)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>string</code> | taskset id |
 | [delay] | <code>number</code> | delay before next check |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -619,7 +620,7 @@ saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e', 3400)
 ## Sizechart
 Product class
 
-**Kind**: global class  
+**Kind**: global class
 
 * [Sizechart](#Sizechart)
     * [new Sizechart(host, axios)](#new_Sizechart_new)
@@ -641,7 +642,7 @@ Product's class constructor
 ### sizechart.getSize(params) ⇒ <code>Promise.&lt;object&gt;</code>
 Get sizes for brand and body part based on person parameters
 
-**Kind**: instance method of [<code>Sizechart</code>](#Sizechart)  
+**Kind**: instance method of [<code>Sizechart</code>](#Sizechart)
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -654,7 +655,7 @@ Get sizes for brand and body part based on person parameters
 | params.brand | <code>number</code> | brand name |
 | [params.customRecommendation] | <code>string</code> | custom recommendation url part for our clients. For internal usage only or if you have custom url and you know what you're doing |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>',
@@ -674,7 +675,7 @@ saia.api.sizechart.getSize({
 <a name="SAIA"></a>
 
 ## SAIA
-**Kind**: global class  
+**Kind**: global class
 <a name="new_SAIA_new"></a>
 
 ### new SAIA(options)
@@ -687,7 +688,7 @@ SAIA class constructor
 | options.key | <code>string</code> | api key |
 | options.host | <code>string</code> | api host url |
 
-**Example**  
+**Example**
 ```js
 const saia = new SAIA({
   key: '<your key>'
@@ -698,7 +699,7 @@ const saia = new SAIA({
 ## getBase64(file) ⇒ <code>Promise.&lt;string&gt;</code>
 Convert File or Blob object to base64 string
 
-**Kind**: global function  
+**Kind**: global function
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -709,7 +710,7 @@ Convert File or Blob object to base64 string
 ## getFileName(blob)
 Get file name with extension for Blob
 
-**Kind**: global function  
+**Kind**: global function
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -720,7 +721,7 @@ Get file name with extension for Blob
 ## getTaskError(tasks) ⇒ <code>string</code>
 Get error description
 
-**Kind**: global function  
+**Kind**: global function
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -733,8 +734,8 @@ To run tests, you need to run this command on terminal/consol:
 
 Linux/macOS
 
-    $ export API_KEY='<your api key>' && export API_HOST='<host>' && npm test
+    $ export API_KEY='<your api key>' && export API_HOST='<host>/api/v2/' && npm test
 
 Windows
 
-    $ set API_KEY='<your api key>' && set API_HOST='<host>' && npm test
+    $ set API_KEY='<your api key>' && set API_HOST='<host>/api/v2/' && npm test

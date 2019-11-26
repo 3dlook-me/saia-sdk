@@ -58,6 +58,9 @@ describe('MTMClient', function () {
       return mtmclient.create({
         firstName: 'user',
         lastName: 'name',
+        phone: '+381234567890',
+        email: 'test@test.com',
+        notes: 'Additional information about mtm client.',
         unit: 'cm',
       })
       .then((r) => {
@@ -102,6 +105,9 @@ describe('MTMClient', function () {
       return mtmclient.create({
         firstName: 'user',
         lastName: 'name',
+        phone: '+381234567890',
+        email: 'test@test.com',
+        notes: 'Additional information about mtm client.',
         unit: 'cm',
       })
       .then((r) => {
@@ -126,6 +132,9 @@ describe('MTMClient', function () {
       return mtmclient.create({
         firstName: 'user',
         lastName: 'name',
+        phone: '+381234567890',
+        email: 'test@test.com',
+        notes: 'Additional information about mtm client.',
         unit: 'cm',
       })
       .then((r) => {
