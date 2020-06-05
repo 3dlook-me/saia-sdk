@@ -33,17 +33,17 @@
     "b64-to-blob": "^1.2.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "babel-loader": "^8.1.0",
     "babel-plugin-istanbul": "^5.2.0",
-    "coveralls": "^3.0.11",
+    "coveralls": "^3.1.0",
     "docma": "^3.2.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.20.2",
     "jasmine-core": "^3.5.0",
-    "jsdoc": "^3.6.3",
+    "jsdoc": "^3.6.4",
     "jsdoc-to-markdown": "^5.0.3",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^2.2.0",
@@ -55,9 +55,9 @@
     "minami": "^1.2.3",
     "puppeteer": "^1.20.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.42.1",
+    "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   },
   "directories": {
     "example": "example",
