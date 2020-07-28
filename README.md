@@ -140,6 +140,7 @@ MTMClient class
 * [MTMClient](#MTMClient)
     * [new MTMClient(host, axios)](#new_MTMClient_new)
     * [.create(params)](#MTMClient+create) ⇒ <code>Promise.&lt;number&gt;</code>
+    * [.update(params)](#MTMClient+update) ⇒ <code>Promise.&lt;number&gt;</code>
     * [.createPerson(mtmClientId, params)](#MTMClient+createPerson) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
 
 <a name="new_MTMClient_new"></a>
@@ -186,7 +187,45 @@ saia.api.mtmClient.create({
   lastName: 'King',
   unit: 'in',
 })
-  .then(mtmClientId => console.log(personId))
+  .then(mtmClientId => console.log(mtmClientId))
+  .catch(err => console.log(err));
+```
+<a name="MTMClient+update"></a>
+
+### mtmClient.update(params) ⇒ <code>Promise.&lt;number&gt;</code>
+Update mtm client
+
+**Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
+**Returns**: <code>Promise.&lt;number&gt;</code> - mtm client's id  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | mtm client's parameters |
+| params.firstName | <code>string</code> | mtm client's first name |
+| [params.lastName] | <code>string</code> | mtm client's last name |
+| params.unit | <code>string</code> | mtm client's unit - cm or in |
+| [params.phone] | <code>string</code> | mtm client's phone number - cm or in |
+| [params.email] | <code>string</code> | mtm client's email - cm or in |
+| [params.source] | <code>string</code> | the source of the request - dashboard, widget |
+| [params.notes] | <code>string</code> | additional information about mtm client |
+| [params.widgetId] | <code>string</code> | widget object id |
+
+**Example**  
+```js
+const saia = new SAIA({
+  key: '<your key>',
+});
+
+// update person only with metadata
+// and get its id
+const existingMtmClientId = 1;
+
+saia.api.mtmClient.update(existingMtmClientId, {
+  firstName: 'Stephen',
+  lastName: 'King',
+  unit: 'in',
+})
+  .then(mtmClientId => console.log(mtmClientId))
   .catch(err => console.log(err));
 ```
 <a name="MTMClient+createPerson"></a>
@@ -564,7 +603,7 @@ Queue class
 * [Queue](#Queue)
     * [new Queue(host, axios)](#new_Queue_new)
     * [.get(id)](#Queue+get) ⇒ <code>Promise.&lt;object&gt;</code>
-    * [.getResults(id, [delay])](#Queue+getResults) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.getResults(id, [delay], [personId])](#Queue+getResults) ⇒ <code>Promise.&lt;object&gt;</code>
 
 <a name="new_Queue_new"></a>
 
@@ -600,7 +639,7 @@ saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')
 ```
 <a name="Queue+getResults"></a>
 
-### queue.getResults(id, [delay]) ⇒ <code>Promise.&lt;object&gt;</code>
+### queue.getResults(id, [delay], [personId]) ⇒ <code>Promise.&lt;object&gt;</code>
 Get result of person processing
 
 **Kind**: instance method of [<code>Queue</code>](#Queue)  
@@ -609,6 +648,7 @@ Get result of person processing
 | --- | --- | --- |
 | id | <code>string</code> | taskset id |
 | [delay] | <code>number</code> | delay before next check |
+| [personId] | <code>number</code> | person id |
 
 **Example**  
 ```js
