@@ -331,6 +331,15 @@ you will get Taskset ID
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
 | [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
+| [params.deviceCoordinates] | <code>Object</code> | user device x, y, z coordinates during photos |
+| params.deviceCoordinates.frontPhoto | <code>Object</code> | user device x, y, z coordinates during Front photo |
+| params.deviceCoordinates.frontPhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.frontPhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.frontPhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.deviceCoordinates.sidePhoto | <code>Object</code> | user device x, y, z coordinates during Side photo |
+| params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
 
 **Example**  
 ```js
@@ -401,6 +410,15 @@ with metadate.
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
 | [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
+| [params.deviceCoordinates] | <code>Object</code> | user device x, y, z coordinates during photo |
+| params.deviceCoordinates.frontPhoto | <code>Object</code> | user device x, y, z coordinates during Front photo |
+| params.deviceCoordinates.frontPhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.frontPhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.frontPhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.deviceCoordinates.sidePhoto | <code>Object</code> | user device x, y, z coordinates during Side photo |
+| params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
 
 **Example**  
 ```js
@@ -436,6 +454,15 @@ Returns person's task set id.
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
 | [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
+| [params.deviceCoordinates] | <code>Object</code> | user device x, y, z coordinates during photo |
+| params.deviceCoordinates.frontPhoto | <code>Object</code> | user device x, y, z coordinates during Front photo |
+| params.deviceCoordinates.frontPhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.frontPhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.frontPhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.deviceCoordinates.sidePhoto | <code>Object</code> | user device x, y, z coordinates during Side photo |
+| params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
+| params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
+| params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
 
 **Example**  
 ```js
