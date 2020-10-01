@@ -340,6 +340,7 @@ you will get Taskset ID
 | params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
 | params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
 | params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.photoFlowType | <code>string</code> | photo flow type ("friend" or "hand"). |
 
 **Example**  
 ```js
@@ -419,6 +420,7 @@ with metadate.
 | params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
 | params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
 | params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.photoFlowType | <code>string</code> | photo flow type ("friend" or "hand"). |
 
 **Example**  
 ```js
@@ -463,6 +465,7 @@ Returns person's task set id.
 | params.deviceCoordinates.sidePhoto.betaX | <code>number</code> | value represents the motion of the device around the x axis, represented in degrees with values ranging from -180 to 180. This represents a front to back motion of the device. |
 | params.deviceCoordinates.sidePhoto.gammaY | <code>number</code> | value represents the motion of the device around the y axis, represented in degrees with values ranging from -90 to 90. This represents a left to right motion of the device. |
 | params.deviceCoordinates.sidePhoto.alphaZ | <code>number</code> | value represents the motion of the device around the z axis, represented in degrees with values ranging from 0 to 360. |
+| params.photoFlowType | <code>string</code> | photo flow type ("friend" or "hand"). |
 
 **Example**  
 ```js
