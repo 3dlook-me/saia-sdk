@@ -125,10 +125,7 @@ Class constructor
 
 **Example**  
 ```js
-const api = new API({
-  key: '<your key>',
-  host: '<api host url>',
-});
+const api = new API({  key: '<your key>',  host: '<api host url>',});
 ```
 <a name="MTMClient"></a>
 
@@ -310,12 +307,7 @@ Person's class constructor
 <a name="Person+create"></a>
 
 ### person.create(params) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
-Create person only with metadata (gender and height)
-or with photos (gender, height, frontImage, sideImage).
-
-If you create Person only with metadata, then you will
-get Person's ID. If you create Person with metadata and images,
-you will get Taskset ID
+Create person only with metadata (gender and height)or with photos (gender, height, frontImage, sideImage).If you create Person only with metadata, then you willget Person's ID. If you create Person with metadata and images,you will get Taskset ID
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
 **Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
@@ -344,30 +336,7 @@ you will get Taskset ID
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-// create person only with metadata
-// and get its id
-saia.api.person.create({
-  gender: 'male',
-  height: 180,
-})
-  .then(personId => console.log(personId))
-  .catch(err => console.log(err));
-
-// create person only with metadata and images
-// and get taskset id. You can use it to track
-// calculation process by using saia.api.queue.getResults(taskSetId)
-saia.api.person.create({
-  gender: 'male',
-  height: 180,
-  frontImage: <frontImage>,
-  sideImage: <sideImage>,
-})
-  .then(taskSetId => console.log(taskSetId))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});// create person only with metadata// and get its idsaia.api.person.create({  gender: 'male',  height: 180,})  .then(personId => console.log(personId))  .catch(err => console.log(err));// create person only with metadata and images// and get taskset id. You can use it to track// calculation process by using saia.api.queue.getResults(taskSetId)saia.api.person.create({  gender: 'male',  height: 180,  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(taskSetId => console.log(taskSetId))  .catch(err => console.log(err));
 ```
 <a name="Person+get"></a>
 
@@ -383,19 +352,12 @@ Get a specific Person by ID
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.person.get(40)
-  .then(person => console.log(person))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.person.get(40)  .then(person => console.log(person))  .catch(err => console.log(err));
 ```
 <a name="Person+update"></a>
 
 ### person.update(id, params) ⇒ <code>Promise.&lt;Object&gt;</code>
-Full or Partial update Person by ID. Returns person's object
-with metadate.
+Full or Partial update Person by ID. Returns person's objectwith metadate.
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
 **Returns**: <code>Promise.&lt;Object&gt;</code> - updated parameters  
@@ -424,22 +386,12 @@ with metadate.
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.person.update(personId, {
-  frontImage: <frontImage>,
-  sideImage: <sideImage>,
-})
-  .then(updatedFields => console.log(updatedFields))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.person.update(personId, {  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(updatedFields => console.log(updatedFields))  .catch(err => console.log(err));
 ```
 <a name="Person+updateAndCalculate"></a>
 
 ### person.updateAndCalculate(id, params) ⇒ <code>Promise.&lt;string&gt;</code>
-Update a new Person by ID with calculation start.
-Returns person's task set id.
+Update a new Person by ID with calculation start.Returns person's task set id.
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - task set url  
@@ -469,17 +421,7 @@ Returns person's task set id.
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.person.updateAndCalculate(personId, {
-  frontImage: <frontImage>,
-  sideImage: <sideImage>,
-})
-  .then(taskSetUrl => saia.api.queue.getResults(taskSetUrl))
-  .then(person => console.log(person))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.person.updateAndCalculate(personId, {  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(taskSetUrl => saia.api.queue.getResults(taskSetUrl))  .then(person => console.log(person))  .catch(err => console.log(err));
 ```
 <a name="Person+calculate"></a>
 
@@ -495,19 +437,7 @@ Manual recalculate Person's parameters by ID
 
 **Example**  
 ```js
-// in this example we update person's images
-// and then manually start recalculation
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.person.update({
-  frontImage: <frontImage>,
-  sideImage: <sideImage>,
-})
-  .then(updatedFields => saia.api.person.calculate(updatedFields.id))
-  .then(taskSetId => console.log(taskSetId))
-  .catch(err => console.log(err));
+// in this example we update person's images// and then manually start recalculationconst saia = new SAIA({  key: '<your key>',});saia.api.person.update({  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(updatedFields => saia.api.person.calculate(updatedFields.id))  .then(taskSetId => console.log(taskSetId))  .catch(err => console.log(err));
 ```
 <a name="Product"></a>
 
@@ -536,8 +466,7 @@ Product's class constructor
 <a name="Product+get"></a>
 
 ### product.get(url) ⇒ <code>Promise.&lt;(Object\|Array)&gt;</code>
-Get product object/objects by its page url.
-It can return an array if two or more products have the same url
+Get product object/objects by its page url.It can return an array if two or more products have the same url
 
 **Kind**: instance method of [<code>Product</code>](#Product)  
 
@@ -547,19 +476,12 @@ It can return an array if two or more products have the same url
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.product.get('https://saia.3dlook.me/test-product')
-  .then(product => console.log(product))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.product.get('https://saia.3dlook.me/test-product')  .then(product => console.log(product))  .catch(err => console.log(err));
 ```
 <a name="Product+getSize"></a>
 
 ### product.getSize(params) ⇒ <code>Promise.&lt;object&gt;</code>
-Get sizes for product based on person parameters.
-This method uses old implemendation of a size recommendation method
+Get sizes for product based on person parameters.This method uses old implemendation of a size recommendation method
 
 **Kind**: instance method of [<code>Product</code>](#Product)  
 
@@ -575,26 +497,12 @@ This method uses old implemendation of a size recommendation method
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.product.getSize({
-  height: 173,
-  gender: 'female',
-  hips: 89,
-  chest: 87,
-  waist: 73,
-  url: 'https://saia.3dlook.me/test-product',
-})
-  .then(size => console.log(size))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.product.getSize({  height: 173,  gender: 'female',  hips: 89,  chest: 87,  waist: 73,  url: 'https://saia.3dlook.me/test-product',})  .then(size => console.log(size))  .catch(err => console.log(err));
 ```
 <a name="Product+getRecommendations"></a>
 
 ### product.getRecommendations(params) ⇒ <code>Promise.&lt;object&gt;</code>
-Get size recommendations for a selected product based on user measurements.
-This method uses new implementation of a size recommendation method.
+Get size recommendations for a selected product based on user measurements.This method uses new implementation of a size recommendation method.
 
 **Kind**: instance method of [<code>Product</code>](#Product)  
 
@@ -609,19 +517,7 @@ This method uses new implementation of a size recommendation method.
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.product.getRecommendations({
-  gender: 'female',
-  hips: 89,
-  chest: 87,
-  waist: 73,
-  url: 'https://saia.3dlook.me/test-product',
-})
-  .then(size => console.log(size))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.product.getRecommendations({  gender: 'female',  hips: 89,  chest: 87,  waist: 73,  url: 'https://saia.3dlook.me/test-product',})  .then(size => console.log(size))  .catch(err => console.log(err));
 ```
 <a name="Queue"></a>
 
@@ -659,13 +555,7 @@ Get information about tasks by taskset id
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')
-  .then(task => console.log(task))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.queue.get('4d563d3f-38ae-4b51-8eab-2b78483b153e')  .then(task => console.log(task))  .catch(err => console.log(err));
 ```
 <a name="Queue+getResults"></a>
 
@@ -682,18 +572,7 @@ Get result of person processing
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e')
-  .then(person => console.log(person))
-  .catch(err => console.log(err));
-
-// you also can specify the delay between checks
-saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e', 3400)
-  .then(person => console.log(person))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e')  .then(person => console.log(person))  .catch(err => console.log(err));// you also can specify the delay between checkssaia.api.queue.getResults('4d563d3f-38ae-4b51-8eab-2b78483b153e', 3400)  .then(person => console.log(person))  .catch(err => console.log(err));
 ```
 <a name="Sizechart"></a>
 
@@ -737,20 +616,7 @@ Get sizes for brand and body part based on person parameters
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-saia.api.sizechart.getSize({
-  gender: 'female',
-  hips: 89,
-  chest: 87,
-  waist: 73,
-  body_part: 'top',
-  brand: 'Nike',
-})
-  .then(size => console.log(size))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});saia.api.sizechart.getSize({  gender: 'female',  hips: 89,  chest: 87,  waist: 73,  body_part: 'top',  brand: 'Nike',})  .then(size => console.log(size))  .catch(err => console.log(err));
 ```
 <a name="SAIA"></a>
 
@@ -770,9 +636,7 @@ SAIA class constructor
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>'
-});
+const saia = new SAIA({  key: '<your key>'});
 ```
 <a name="getBase64"></a>
 
