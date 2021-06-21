@@ -173,19 +173,7 @@ Create mtm client
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-// create person only with metadata
-// and get its id
-saia.api.mtmClient.create({
-  firstName: 'Stephen',
-  lastName: 'King',
-  unit: 'in',
-})
-  .then(mtmClientId => console.log(mtmClientId))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});// create person only with metadata// and get its idsaia.api.mtmClient.create({  firstName: 'Stephen',  lastName: 'King',  unit: 'in',})  .then(mtmClientId => console.log(mtmClientId))  .catch(err => console.log(err));
 ```
 <a name="MTMClient+update"></a>
 
@@ -209,31 +197,12 @@ Update mtm client
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-// update person only with metadata
-// and get its id
-const existingMtmClientId = 1;
-
-saia.api.mtmClient.update(existingMtmClientId, {
-  firstName: 'Stephen',
-  lastName: 'King',
-  unit: 'in',
-})
-  .then(mtmClientId => console.log(mtmClientId))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});// update person only with metadata// and get its idconst existingMtmClientId = 1;saia.api.mtmClient.update(existingMtmClientId, {  firstName: 'Stephen',  lastName: 'King',  unit: 'in',})  .then(mtmClientId => console.log(mtmClientId))  .catch(err => console.log(err));
 ```
 <a name="MTMClient+createPerson"></a>
 
 ### mtmClient.createPerson(mtmClientId, params) ⇒ <code>Promise.&lt;(string\|number)&gt;</code>
-Create person for mtm client only with metadata (gender and height)
-or with photos (gender, height, frontImage, sideImage).
-
-If you create Person only with metadata, then you will
-get Person's ID. If you create Person with metadata and images,
-you will get Taskset ID
+Create person for mtm client only with metadata (gender and height)or with photos (gender, height, frontImage, sideImage).If you create Person only with metadata, then you willget Person's ID. If you create Person with metadata and images,you will get Taskset ID
 
 **Kind**: instance method of [<code>MTMClient</code>](#MTMClient)  
 **Returns**: <code>Promise.&lt;(string\|number)&gt;</code> - person's id or taskset id  
@@ -253,30 +222,7 @@ you will get Taskset ID
 
 **Example**  
 ```js
-const saia = new SAIA({
-  key: '<your key>',
-});
-
-// create person only with metadata
-// and get its id
-saia.api.mtmClient.createPerson(mtmClientId, {
-  gender: 'male',
-  height: 180,
-})
-  .then(personId => console.log(personId))
-  .catch(err => console.log(err));
-
-// create person only with metadata and images
-// and get taskset id. You can use it to track
-// calculation process by using saia.api.queue.getResults(taskSetId)
-saia.api.mtmClient.createPerson(mtmClientId, {
-  gender: 'male',
-  height: 180,
-  frontImage: <frontImage>,
-  sideImage: <sideImage>,
-})
-  .then(taskSetId => console.log(taskSetId))
-  .catch(err => console.log(err));
+const saia = new SAIA({  key: '<your key>',});// create person only with metadata// and get its idsaia.api.mtmClient.createPerson(mtmClientId, {  gender: 'male',  height: 180,})  .then(personId => console.log(personId))  .catch(err => console.log(err));// create person only with metadata and images// and get taskset id. You can use it to track// calculation process by using saia.api.queue.getResults(taskSetId)saia.api.mtmClient.createPerson(mtmClientId, {  gender: 'male',  height: 180,  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(taskSetId => console.log(taskSetId))  .catch(err => console.log(err));
 ```
 <a name="Person"></a>
 
@@ -292,6 +238,7 @@ Person class
     * [.update(id, params)](#Person+update) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.updateAndCalculate(id, params)](#Person+updateAndCalculate) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.calculate(id)](#Person+calculate) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.virtualTryOn(id, product)](#Person+virtualTryOn) ⇒ <code>Promise.&lt;Object&gt;</code>
 
 <a name="new_Person_new"></a>
 
@@ -318,6 +265,8 @@ Create person only with metadata (gender and height)or with photos (gender, hei
 | params.gender | <code>string</code> | person's gender |
 | params.height | <code>number</code> | person's height |
 | [params.measurementsType] | <code>string</code> | type of measurements - all |
+| [params.hasVirtualTryOn] | <code>boolean</code> | should apply virtual try on |
+| [params.product] | <code>any</code> | product sku which would be used for virtual try on |
 | [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
 | [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
 | [params.weight] | <code>string</code> | person's weight in kg |
@@ -401,6 +350,8 @@ Update a new Person by ID with calculation start.Returns person's task set id.
 | id | <code>number</code> | Person''s ID |
 | params | <code>Object</code> | Person's parameters |
 | [params.measurementsType] | <code>string</code> | type of measurements - all |
+| [params.hasVirtualTryOn] | <code>boolean</code> | should apply virtual try on |
+| [params.product] | <code>any</code> | product sku which would be used for virtual try on |
 | [params.gender] | <code>string</code> | Person's parameters |
 | [params.height] | <code>number</code> | Person's height |
 | [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
@@ -439,6 +390,19 @@ Manual recalculate Person's parameters by ID
 ```js
 // in this example we update person's images// and then manually start recalculationconst saia = new SAIA({  key: '<your key>',});saia.api.person.update({  frontImage: <frontImage>,  sideImage: <sideImage>,})  .then(updatedFields => saia.api.person.calculate(updatedFields.id))  .then(taskSetId => console.log(taskSetId))  .catch(err => console.log(err));
 ```
+<a name="Person+virtualTryOn"></a>
+
+### person.virtualTryOn(id, product) ⇒ <code>Promise.&lt;Object&gt;</code>
+Processing virtual tryon for specific person and productresult also would be available in person.get(id).virtual_tryons[ {   "id": tryonId,   "product_sku": "productSku"   "created": 'datetime',   "image: "https://url.to.tryon.image.com" }]
+
+**Kind**: instance method of [<code>Person</code>](#Person)  
+**Returns**: <code>Promise.&lt;Object&gt;</code> - virtual try on Object {   "id": tryonId,   "product_sku": "productSku"   "created": 'datetime',   "image: "https://url.to.tryon.image.com" }  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | Person's ID |
+| product | <code>any</code> | Product sku |
+
 <a name="Product"></a>
 
 ## Product
