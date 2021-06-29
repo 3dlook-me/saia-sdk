@@ -237,7 +237,7 @@ Person class
     * [.get(id)](#Person+get) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.update(id, params)](#Person+update) ⇒ <code>Promise.&lt;Object&gt;</code>
     * [.updateAndCalculate(id, params)](#Person+updateAndCalculate) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.calculate(id)](#Person+calculate) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.calculate(id, hasVirtualTryOn, product)](#Person+calculate) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.virtualTryOn(id, product)](#Person+virtualTryOn) ⇒ <code>Promise.&lt;Object&gt;</code>
 
 <a name="new_Person_new"></a>
@@ -376,7 +376,7 @@ const saia = new SAIA({  key: '<your key>',});saia.api.person.updateAndCalcu
 ```
 <a name="Person+calculate"></a>
 
-### person.calculate(id) ⇒ <code>Promise.&lt;string&gt;</code>
+### person.calculate(id, hasVirtualTryOn, product) ⇒ <code>Promise.&lt;string&gt;</code>
 Manual recalculate Person's parameters by ID
 
 **Kind**: instance method of [<code>Person</code>](#Person)  
@@ -385,6 +385,8 @@ Manual recalculate Person's parameters by ID
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> | Person's ID |
+| hasVirtualTryOn | <code>boolean</code> | should process virtual try on |
+| product | <code>any</code> | product sku for virtual try on |
 
 **Example**  
 ```js
