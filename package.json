@@ -29,7 +29,7 @@
   "license": "ISC",
   "homepage": "https://github.com/3dlook-me/saia-sdk#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "b64-to-blob": "^1.2.19"
   },
   "devDependencies": {
