@@ -1,6 +1,6 @@
 {
   "name": "@3dlook/saia-sdk",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "description": "JS SDK for SAIA Perfect Fit",
   "main": "index.js",
   "scripts": {
