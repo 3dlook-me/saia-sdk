@@ -1,7 +1,13 @@
 /* eslint-disable */
 const webpack = require('webpack');
+const { execSync } = require('child_process');
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+// puppeteer.executablePath() is async since puppeteer 22+, but this config
+// must set CHROME_BIN synchronously before karma reads it — hence the shell-out.
+process.env.CHROME_BIN = execSync(
+  'node -e "require(\'puppeteer\').executablePath().then((p) => process.stdout.write(p))"',
+  { cwd: __dirname },
+).toString();
 
 const NODE_ENV = process.env.NODE_ENV;
 const COVERALLS = process.env.COVERALLS;

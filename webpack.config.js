@@ -1,7 +1,6 @@
 /* eslint-disable */
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 const mode = (NODE_ENV && NODE_ENV.trim() === 'production') ? 'production' : 'development';
@@ -36,9 +35,11 @@ const config = {
   output: {
     path: `${__dirname}/dist/`,
     filename: '[name].js',
-    library: 'SAIA',
-    libraryExport: 'default',
-    libraryTarget: 'umd',
+    library: {
+      name: 'SAIA',
+      type: 'umd',
+      export: 'default',
+    },
     umdNamedDefine: true,
   },
   module: {
@@ -62,15 +63,6 @@ const config = {
         ],
       },
     ],
-  },
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      }),
-    ]
   },
   resolve: {
     extensions: [ '.js' ],
