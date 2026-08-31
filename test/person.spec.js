@@ -10,6 +10,10 @@ const key = API_KEY;
 const frontImage = testImages.frontImage;
 const sideImage = testImages.sideImage;
 
+function base64ToBlob(base64) {
+  return fetch(base64).then(r => r.blob());
+}
+
 describe('Person', function () {
 
   beforeAll(() => {
@@ -82,6 +86,24 @@ describe('Person', function () {
         frontImage,
         sideImage,
       })
+      .then((r) => {
+        expect(typeof r).toEqual('string');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+    it('should post metadata with photos as Blob/File successful and return Taskset id', (done) => {
+      return Promise.all([base64ToBlob(frontImage), base64ToBlob(sideImage)])
+      .then(([frontBlob, sideBlob]) => person.create({
+        gender: 'male',
+        height: 170,
+        frontImage: frontBlob,
+        sideImage: new File([sideBlob], 'side.png', { type: sideBlob.type }),
+      }))
       .then((r) => {
         expect(typeof r).toEqual('string');
         return done();
@@ -175,6 +197,27 @@ describe('Person', function () {
       });
     });
 
+    it('should update person\'s photos passed as Blob/File', (done) => {
+      return Promise.all([base64ToBlob(frontImage), base64ToBlob(sideImage)])
+      .then(([frontBlob, sideBlob]) => person.create({
+        height: 170,
+        gender: 'male',
+      })
+      .then((id) => person.update(id, {
+        frontImage: frontBlob,
+        sideImage: sideBlob,
+      })))
+      .then((p) => {
+        expect(typeof p).toEqual('object');
+
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
   });
 
   describe('updateAndCalculate', () => {
@@ -209,6 +252,27 @@ describe('Person', function () {
           sideImage,
         });
       })
+      .then((p) => {
+        expect(typeof p).toEqual('string');
+
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+    it('should updateAndCalculate person\'s photos passed as Blob/File', (done) => {
+      return Promise.all([base64ToBlob(frontImage), base64ToBlob(sideImage)])
+      .then(([frontBlob, sideBlob]) => person.create({
+        height: 170,
+        gender: 'male',
+      })
+      .then((id) => person.updateAndCalculate(id, {
+        frontImage: frontBlob,
+        sideImage: sideBlob,
+      })))
       .then((p) => {
         expect(typeof p).toEqual('string');
 

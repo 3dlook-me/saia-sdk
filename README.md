@@ -64,6 +64,24 @@ saia.api.person.create({
   .catch(err => console.error(err));
 ```
 
+`frontImage`/`sideImage` can also be passed as a `File`/`Blob` instead of a Base64 string - the SDK will then send the request as `multipart/form-data` instead of JSON:
+
+```js
+const saia = new SAIA({
+  key: '<your api key>',
+});
+
+saia.api.person.create({
+  gender: 'female',
+  height: 180,
+  frontImage: fileInput.files[0],
+  sideImage: fileInput2.files[0],
+})
+  .then((taskSetId) => saia.api.queue.getResults(taskSetId))
+  .then(results => console.log(results))
+  .catch(err => console.error(err));
+```
+
 ## API
 
 ## Classes
@@ -99,6 +117,18 @@ saia.api.person.create({
 </dd>
 <dt><a href="#getFileName">getFileName(blob)</a></dt>
 <dd><p>Get file name with extension for Blob</p>
+</dd>
+<dt><a href="#isBlob">isBlob(value)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Check if value is a File or Blob instance</p>
+</dd>
+<dt><a href="#toFormData">toFormData(fields)</a> ⇒ <code>FormData</code></dt>
+<dd><p>Convert a flat fields object into a FormData instance.
+File/Blob values are appended as files, plain objects are JSON-stringified,
+null/undefined values are skipped (to mirror JSON.stringify&#39;s behaviour).</p>
+</dd>
+<dt><a href="#buildRequestData">buildRequestData(fields)</a> ⇒ <code>Object</code> | <code>FormData</code></dt>
+<dd><p>Build request data for axios - returns a FormData instance if any of
+the fields is a File/Blob, otherwise returns the fields object unchanged.</p>
 </dd>
 <dt><a href="#getTaskError">getTaskError(tasks)</a> ⇒ <code>string</code></dt>
 <dd><p>Get error description</p>
@@ -248,8 +278,8 @@ you will get Taskset ID
 | params.gender | <code>string</code> | person's gender |
 | params.height | <code>number</code> | person's height |
 | [params.measurementsType] | <code>string</code> | type of measurements - all |
-| [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
-| [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
+| [params.frontImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | person's front photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
+| [params.sideImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | person's side photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
 | [params.weightBottomBorder] | <code>string</code> | person's bottom weight border in kg |
@@ -329,8 +359,8 @@ you will get Taskset ID
 | [params.measurementsType] | <code>string</code> | type of measurements - all |
 | [params.hasVirtualTryOn] | <code>boolean</code> | should apply virtual try on |
 | [params.product] | <code>any</code> | product sku which would be used for virtual try on |
-| [params.frontImage] | <code>string</code> | person's Base64 encoded front photo |
-| [params.sideImage] | <code>string</code> | person's Base64 encoded side photo |
+| [params.frontImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | person's front photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
+| [params.sideImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | person's side photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
 | [params.validateImages] | <code>boolean</code> | should apply back-end validation |
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
@@ -410,8 +440,8 @@ with metadate.
 | params | <code>Object</code> | Person's parameters |
 | [params.gender] | <code>string</code> | Person's parameters |
 | [params.height] | <code>number</code> | Person's height |
-| [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
-| [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
+| [params.frontImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | Person's front photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
+| [params.sideImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | Person's side photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
 | [params.validateImages] | <code>boolean</code> | should apply back-end validation |
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
@@ -458,8 +488,8 @@ Returns person's task set id.
 | [params.product] | <code>any</code> | product sku which would be used for virtual try on |
 | [params.gender] | <code>string</code> | Person's parameters |
 | [params.height] | <code>number</code> | Person's height |
-| [params.frontImage] | <code>string</code> | Person's Base64 encoded frontImage |
-| [params.sideImage] | <code>string</code> | Person's Base64 encoded sideImage |
+| [params.frontImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | Person's front photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
+| [params.sideImage] | <code>string</code> \| <code>File</code> \| <code>Blob</code> | Person's side photo - Base64 encoded string, or a File/Blob (sent as multipart/form-data) |
 | [params.validateImages] | <code>boolean</code> | should apply back-end validation |
 | [params.weight] | <code>string</code> | person's weight in kg |
 | [params.weightTopBorder] | <code>string</code> | person's top weight border in kg |
@@ -832,6 +862,42 @@ Get file name with extension for Blob
 | Param | Type | Description |
 | --- | --- | --- |
 | blob | <code>Blob</code> | file |
+
+<a name="isBlob"></a>
+
+## isBlob(value) ⇒ <code>boolean</code>
+Check if value is a File or Blob instance
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | value to check |
+
+<a name="toFormData"></a>
+
+## toFormData(fields) ⇒ <code>FormData</code>
+Convert a flat fields object into a FormData instance.
+File/Blob values are appended as files, plain objects are JSON-stringified,
+null/undefined values are skipped (to mirror JSON.stringify's behaviour).
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fields | <code>Object</code> | flat object of request fields |
+
+<a name="buildRequestData"></a>
+
+## buildRequestData(fields) ⇒ <code>Object</code> \| <code>FormData</code>
+Build request data for axios - returns a FormData instance if any of
+the fields is a File/Blob, otherwise returns the fields object unchanged.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fields | <code>Object</code> | flat object of request fields |
 
 <a name="getTaskError"></a>
 

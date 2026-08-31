@@ -10,6 +10,10 @@ const key = API_KEY;
 const frontImage = testImages.frontImage;
 const sideImage = testImages.sideImage;
 
+function base64ToBlob(base64) {
+  return fetch(base64).then(r => r.blob());
+}
+
 describe('MTMClient', function () {
 
   beforeAll(() => {
@@ -147,6 +151,32 @@ describe('MTMClient', function () {
           sideImage,
         })
       })
+      .then((r) => {
+        expect(typeof r).toEqual('string');
+        return done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        return done();
+      });
+    });
+
+    it('should create a person for mtm client with metadate and photos as Blob/File', (done) => {
+      return Promise.all([base64ToBlob(frontImage), base64ToBlob(sideImage)])
+      .then(([frontBlob, sideBlob]) => mtmclient.create({
+        firstName: 'user',
+        lastName: 'name',
+        phone: '+381234567890',
+        email: 'test@test.com',
+        notes: 'Additional information about mtm client.',
+        unit: 'cm',
+      })
+      .then((r) => mtmclient.createPerson(r, {
+        gender: 'male',
+        height: 180,
+        frontImage: frontBlob,
+        sideImage: sideBlob,
+      })))
       .then((r) => {
         expect(typeof r).toEqual('string');
         return done();
