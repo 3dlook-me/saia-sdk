@@ -120,6 +120,25 @@ describe('Utils', () => {
 
   });
 
+  describe('parseLocationId', () => {
+
+    it('should extract the task set id from a queue Location header', () => {
+      expect(utils.parseLocationId('https://api.3dlook.me/queue/abc-123/')).toEqual('abc-123');
+    });
+
+    it('should fall back to the person id when the queue is bypassed', () => {
+      expect(utils.parseLocationId('https://api.3dlook.me/persons/42/')).toEqual('42');
+    });
+
+    it('should throw a clear error when the Location header matches neither format', () => {
+      const locationUrl = 'https://api.3dlook.me/unexpected/';
+
+      expect(() => utils.parseLocationId(locationUrl))
+        .toThrow(new Error(`Unexpected Location header format: ${locationUrl}`));
+    });
+
+  });
+
   describe('buildRequestData', () => {
 
     it('should return the fields object unchanged when there is no Blob/File', () => {
