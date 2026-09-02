@@ -88,12 +88,8 @@ saia.api.person.create({
 
 ## Testing
 
-To run tests, you need to run this command on terminal/consol:
+The test suite is a set of self-contained client-side unit tests (input
+validation, error handling) — it does not make real HTTP requests, so no
+live API credentials are required:
 
-Linux/macOS
-
-    $ export API_KEY='<your api key>' && export API_HOST='<host>' && npm test
-
-Windows
-
-    $ set API_KEY='<your api key>' && set API_HOST='<host>' && npm test
+    $ npm test
