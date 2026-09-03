@@ -68,8 +68,10 @@ module.exports = function(config) {
       },
       plugins: [
         new webpack.DefinePlugin({
-          API_HOST: JSON.stringify(process.env.API_HOST),
-          API_KEY: JSON.stringify(process.env.API_KEY),
+          // the suite only unit-tests client-side validation, so a dummy value
+          // is enough unless a real API_HOST/API_KEY is exported for manual testing
+          API_HOST: JSON.stringify(process.env.API_HOST || 'https://saia-test.3dlook.me/'),
+          API_KEY: JSON.stringify(process.env.API_KEY || 'dummy-api-key'),
         }),
       ],
       watch: true

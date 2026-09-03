@@ -64,18 +64,32 @@ saia.api.person.create({
   .catch(err => console.error(err));
 ```
 
+`frontImage`/`sideImage` can also be passed as a `File`/`Blob` instead of a Base64 string - the SDK will then send the request as `multipart/form-data` instead of JSON:
+
+```js
+const saia = new SAIA({
+  key: '<your api key>',
+});
+
+saia.api.person.create({
+  gender: 'female',
+  height: 180,
+  frontImage: fileInput.files[0],
+  sideImage: fileInput2.files[0],
+})
+  .then((taskSetId) => saia.api.queue.getResults(taskSetId))
+  .then(results => console.log(results))
+  .catch(err => console.error(err));
+```
+
 ## API
 
 {{>main}}
 
 ## Testing
 
-To run tests, you need to run this command on terminal/consol:
+The test suite is a set of self-contained client-side unit tests (input
+validation, error handling) — it does not make real HTTP requests, so no
+live API credentials are required:
 
-Linux/macOS
-
-    $ export API_KEY='<your api key>' && export API_HOST='<host>' && npm test
-
-Windows
-
-    $ set API_KEY='<your api key>' && set API_HOST='<host>' && npm test
+    $ npm test
